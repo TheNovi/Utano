@@ -4,7 +4,7 @@ from threading import Thread
 from time import sleep
 
 from utano import *
-from scenes import main
+from scenes import ScenesManager
 
 conf = {
 	"path": "./",
@@ -34,7 +34,7 @@ def load(path: str, default: dict) -> dict:
 def queue():
 	while True:
 		sleep(0.01)
-		s_main.tick()
+		s_manager.tick()
 		ut.tick()
 
 
@@ -48,10 +48,9 @@ if __name__ == '__main__':
 	root.resizable(width=False, height=False)
 	root.bind("<Button-2>", lambda e: ut.pause())
 
-	s_main = main.Main(root, ut, theme)
+	s_manager = ScenesManager(root, ut, theme)
 
-	s_main.pack(fill='both')
-	ut.set_callbacks(next_song_call=s_main.next_song_call)
+	ut.set_callbacks(next_song_call=s_manager.s_main.next_song_call)
 
 	q = Thread(target=queue)
 	q.setDaemon(True)

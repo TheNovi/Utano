@@ -1,8 +1,9 @@
 import tkinter
 from utano import Utano
+from scenes.scene import Scene
 
 
-class Main(tkinter.Frame):
+class Main(tkinter.Frame, Scene):
 	def __init__(self, master, ut: Utano, theme, **kw):
 		super().__init__(master, bg=theme['bg'], **kw)
 		self.ut = ut
@@ -20,8 +21,14 @@ class Main(tkinter.Frame):
 		self.l_artist.bind("<Button-1>", lambda e: self.ut.next_song())
 		self.l_artist.bind("<Button-3>", lambda e: self.ut.next_song(-1))
 
+	def activate(self):
+		self.pack(fill='both')
+
 	def tick(self):
 		self.u_song_line()
+
+	def deactivate(self):
+		self.pack_forget()
 
 	def u_song_line(self):
 		p = (1 - self.ut.player.p.get_position())
