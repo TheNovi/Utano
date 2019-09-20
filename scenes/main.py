@@ -1,34 +1,31 @@
 import tkinter
-from utano import Utano
+
 from scenes.scene import Scene
 
 
-class Main(tkinter.Frame, Scene):
-	def __init__(self, master, ut: Utano, theme, **kw):
-		super().__init__(master, bg=theme['bg'], **kw)
-		self.ut = ut
+class Main(Scene):
+	def _init_(self):
 		self.s_name = tkinter.StringVar()
 		self.s_artist = tkinter.StringVar()
-		self.l_name = tkinter.Label(self, textvariable=self.s_name, bg=theme["bg"], fg=theme['fg'], font=(theme['font'], 25))
-		self.l_artist = tkinter.Label(self, textvariable=self.s_artist, bg=theme['bg'], fg=theme['fg'], font=(theme['font'], 15))
-		self.song_line = tkinter.Label(self, bg=theme['bg'], fg=theme['fg'], font=('helvetica', 5))
+		self.song_line = tkinter.Label(self, bg=self.theme['bg'], fg=self.theme['fg'], font=('helvetica', 5))
+		self.l_artist = tkinter.Label(self, textvariable=self.s_artist, bg=self.theme['bg'], fg=self.theme['fg'], font=(self.theme['font'], 15))
+		self.l_name = tkinter.Label(self, textvariable=self.s_name, bg=self.theme["bg"], fg=self.theme['fg'], font=(self.theme['font'], 25))
 
 		self.l_name.pack(fill='both')
 		self.l_artist.pack(fill='both')
 		self.song_line.pack(fill='both')
+
 		self.l_name.bind("<Button-1>", lambda e: self.ut.next_song())
 		self.l_name.bind("<Button-3>", lambda e: self.ut.next_song(-1))
 		self.l_artist.bind("<Button-1>", lambda e: self.ut.next_song())
 		self.l_artist.bind("<Button-3>", lambda e: self.ut.next_song(-1))
 
-	def activate(self):
-		self.pack(fill='both')
-
 	def tick(self):
 		self.u_song_line()
 
-	def deactivate(self):
-		self.pack_forget()
+	def typed(self, event):
+		if event.char == 'v':
+			self.manager.switch(self.manager.s_volume)
 
 	def u_song_line(self):
 		p = (1 - self.ut.player.p.get_position())
