@@ -1,6 +1,5 @@
-from time import sleep
-
 import vlc
+
 from .song import Song
 
 

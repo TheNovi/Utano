@@ -14,6 +14,7 @@ class ScenesManager:
 		self.activated: main.Scene = type("TypeScene", (), {'deactivate': lambda: None})
 
 		self._root_.bind('<Escape>', self.escape)
+		self._root_.bind("<MouseWheel>", lambda event: self.switch(self.s_volume) or self.s_volume.vol_change_e(event))
 		self._root_.bind('<KeyRelease-v>', self.typed)
 
 		self.switch(self.s_main)

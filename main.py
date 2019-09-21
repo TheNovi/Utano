@@ -1,7 +1,6 @@
 import tkinter
 import json
 from threading import Thread
-from time import sleep
 
 from utano import *
 from scenes import ScenesManager
@@ -33,7 +32,7 @@ def load(path: str, default: dict) -> dict:
 
 def queue():
 	while True:
-		sleep(0.01)
+		root.after(1)
 		s_manager.tick()
 		ut.tick()
 
