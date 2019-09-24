@@ -26,12 +26,6 @@ class Main(Scene):
 			self.l_artist.bind(*b)
 			self.song_line.bind(*b)
 
-		# self.l_name.bind("<Button-1>", lambda e: self.ut.next_song())
-		# self.l_name.bind("<Button-3>", lambda e: self.ut.next_song(-1))
-		# self.l_artist.bind("<Button-1>", lambda e: self.ut.next_song())
-		# self.l_artist.bind("<Button-3>", lambda e: self.ut.next_song(-1))
-		# self.bind("<MouseWheel>", lambda event: self.manager.s_volume.switch_to_me() or self.manager.s_volume.vol_change_e(event))
-
 	def tick(self):
 		self.u_song_line()
 
@@ -43,7 +37,9 @@ class Main(Scene):
 	def typed(self, event):
 		super().typed(event)
 		if event.keysym == 'Down':
-			self.manager.s_catalog.switch_to_me()
+			self.manager.s_catalog.switch_to_me()  # FIXME Sometimes e_search don't get focused
+		elif event.keysym == 'Up':
+			self.manager.s_volume.switch_to_me()
 
 	def next_song_call(self):
 		def add_spaces(h):  # Adding some spaces around names
