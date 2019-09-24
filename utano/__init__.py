@@ -12,7 +12,7 @@ class Utano:
 		self.songs: List[song.Song] = []
 		self.player = player.Player(self.config, self.next_song)
 
-		self._actual_i_ = -1
+		self.actual_i = -1
 		self.status = True  # Playing/Paused
 
 		self._load_songs_()
@@ -25,18 +25,22 @@ class Utano:
 		self.next_song_call = next_song_call
 
 	def get_actual_song(self):
-		return self.songs[self._actual_i_]
+		return self.songs[self.actual_i]
 
 	def next_song(self, i=1):
-		self._actual_i_ += i
-		if self._actual_i_ >= len(self.songs):
-			self._actual_i_ = 0
+		self.actual_i += i
+		if self.actual_i >= len(self.songs):
+			self.actual_i = 0
 			shuffle(self.songs)
-		elif self._actual_i_ < 0:
-			self._actual_i_ = len(self.songs) - 1
+		elif self.actual_i < 0:
+			self.actual_i = len(self.songs) - 1
 
 		self.player.play(self.get_actual_song(), self.status)
 		self.next_song_call()
+
+	def play_this(self, s: song):
+		self.actual_i = self.songs.index(s)
+		self.next_song(0)
 
 	def tick(self):
 		self.player.tick()

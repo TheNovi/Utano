@@ -3,13 +3,15 @@ import tkinter
 from scenes.scene import Scene
 
 
+# noinspection PyAttributeOutsideInit
 class Main(Scene):
 	def _init_(self):
-		self.v_name = tkinter.StringVar()
-		self.v_artist = tkinter.StringVar()
+		super()._init_()
+		# self.v_name = tkinter.StringVar()
+		# self.v_artist = tkinter.StringVar()
+		self.l_artist = tkinter.Label(self, text='', bg=self.theme['bg'], fg=self.theme['fg'], font=(self.theme['font'], 15))
+		self.l_name = tkinter.Label(self, text='', bg=self.theme["bg"], fg=self.theme['fg'], font=(self.theme['font'], 25))
 		self.song_line = tkinter.Label(self, bg=self.theme['bg'], fg=self.theme['fg'], font=('helvetica', 5))
-		self.l_artist = tkinter.Label(self, textvariable=self.v_artist, bg=self.theme['bg'], fg=self.theme['fg'], font=(self.theme['font'], 15))
-		self.l_name = tkinter.Label(self, textvariable=self.v_name, bg=self.theme["bg"], fg=self.theme['fg'], font=(self.theme['font'], 25))
 
 		self.l_name.pack(fill='both')
 		self.l_artist.pack(fill='both')
@@ -23,12 +25,22 @@ class Main(Scene):
 	def tick(self):
 		self.u_song_line()
 
+	def typed(self, event):
+		super().typed(event)
+		if event.keysym == 'Down':
+			self.manager.switch(self.manager.s_catalog)
+
 	def u_song_line(self):
 		p = (1 - self.ut.player.p.get_position())
 		p = min(1, max(0, p))
 		self.song_line['text'] = '-' * int(p * self.song_line.winfo_width()/2.3)
 
 	def next_song_call(self):
+		def add_spaces(h):  # Adding some spaces around names
+			h = "   " + h + "   "
+			while len(h) < 30:
+				h = " " + h + " "
+			return h
 		s = self.ut.get_actual_song()
-		self.v_name.set(s.name)
-		self.v_artist.set(s.artist)
+		self.l_name['text'] = add_spaces(s.name)
+		self.l_artist['text'] = add_spaces(s.artist)

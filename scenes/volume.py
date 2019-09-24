@@ -9,10 +9,10 @@ class Volume(Scene):
 	COUNTDOWN = 3
 
 	def _init_(self):
+		super()._init_()
 		self.timer = datetime.now()
 		self.v_volume = tkinter.IntVar()
-		self.l_volume = tkinter.Label(self, textvariable=self.v_volume, bg=self.theme['bg'], fg=self.theme['fg'],
-		                              font=(self.theme['font'], 25), padx=200, pady=28)
+		self.l_volume = tkinter.Label(self, textvariable=self.v_volume, bg=self.theme['bg'], fg=self.theme['fg'], font=(self.theme['font'], 25), padx=200, pady=28)
 
 		self.l_volume.pack(fill='both')
 
