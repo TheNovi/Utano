@@ -1,5 +1,3 @@
-import tkinter
-
 from scenes import main, volume, catalog
 
 
@@ -17,11 +15,10 @@ class ScenesManager:
 		self.activated: main.Scene = type("TypeScene", (), {'deactivate': lambda: None})
 
 		self._root_.bind('<Escape>', self.escape)
-		self._root_.bind("<MouseWheel>", lambda event: self.switch(self.s_volume) or self.s_volume.vol_change_e(event))
 		for t in ['Up', 'Left', 'Down', 'Right']:
 			self._root_.bind(f'<{t}>', self.typed)
 
-		self.switch(self.s_main)
+		self.s_main.switch_to_me()
 
 	def tick(self):
 		self.activated.tick()
@@ -35,4 +32,4 @@ class ScenesManager:
 		self.activated.activate()
 
 	def escape(self, *_, **__):
-		self.switch(self.s_main)
+		self.s_main.switch_to_me()

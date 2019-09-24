@@ -14,12 +14,14 @@ class Volume(Scene):
 		self.v_volume = tkinter.IntVar()
 		self.l_volume = tkinter.Label(self, textvariable=self.v_volume, bg=self.theme['bg'], fg=self.theme['fg'], font=(self.theme['font'], 25), padx=200, pady=28)
 
+		self.l_volume.bind('<MouseWheel>', self.vol_change_e)
+
 		self.l_volume.pack(fill='both')
 
 	def activate(self):
 		super().activate()
 		self.timer = datetime.now()
-		self.v_volume.set(self.ut.player.p.audio_get_volume())
+		self.v_volume.set(self.ut.player.get_volume())
 		self.l_volume.config(fg=self.theme['fg'])
 
 	def tick(self):
@@ -30,9 +32,14 @@ class Volume(Scene):
 		if p <= 0:
 			self.manager.escape()
 
+	def typed(self, event):
+		super().typed(event)
+		if event.keysym == 'Down':
+			self.manager.s_catalog.switch_to_me()
+
 	def vol_change_e(self, event):
 		self.timer = datetime.now()
-		a = int(self.ut.player.p.audio_get_volume() + event.delta / 120)
-		self.ut.player.p.audio_set_volume(min(a, 100))
+		a = int(self.ut.player.get_volume() + event.delta / 120)
+		self.ut.player.set_volume(a)
 		self.master.after(2)
-		self.v_volume.set(self.ut.player.p.audio_get_volume())
+		self.v_volume.set(self.ut.player.get_volume())

@@ -26,3 +26,6 @@ class Scene(Frame):
 
 	def typed(self, event):
 		pass
+
+	def switch_to_me(self):
+		self.manager.switch(self)

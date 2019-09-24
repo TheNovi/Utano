@@ -1,10 +1,8 @@
-# from mutagen.mp3 import MP3
 
 
 class Song:
 	def __init__(self, path: str):
 		self.path: str = path
-		# self.mut = MP3(path)
 		self.name, self.artist = self.get_name()
 
 	# Getting song name/artist from file path
