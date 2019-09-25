@@ -30,8 +30,8 @@ def load(path: str, default: dict) -> dict:
 
 
 def queue():
-	s_manager.tick()
 	ut.tick()
+	s_manager.tick()
 	root.after(1, queue)
 
 

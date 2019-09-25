@@ -15,9 +15,7 @@ class ScenesManager:
 		self.activated: main.Scene = type("TypeScene", (), {'deactivate': lambda: None})
 
 		self._root_.bind('<Escape>', self.escape)
-		self._root_.bind('<Key>', self.typed)  # lambda event: ((self.s_main.is_active() or self.s_volume.is_active()) and len(event.keysym) == 1) and (self.s_catalog.switch_to_me() or self.s_catalog.e_search.insert(0, event.keysym)))
-		# for t in :
-		# 	self._root_.bind(f'<{t}>', self.typed)
+		self._root_.bind('<Key>', self.typed)
 
 		self.s_main.switch_to_me()
 
