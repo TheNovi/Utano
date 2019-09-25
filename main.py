@@ -33,7 +33,7 @@ def load(path: str, default: dict) -> dict:
 def queue():
 	ut.tick()
 	s_manager.tick()
-	root.after(1, queue)
+	root.after(10, queue)
 
 
 if __name__ == '__main__':

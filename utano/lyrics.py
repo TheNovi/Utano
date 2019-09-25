@@ -8,8 +8,8 @@ class Drop:
 		self.time = int(text[0].replace("[", "").replace(" ", "").strip(" "))
 		text = text[1].strip().split(' ')
 		text.append('')
-		self.duration = text[1]
-		self.offset = text[2]
+		self.duration = int(text[1])
+		self.offset = int(text[2])
 		self.options = text[3]
 		self.text = 'drop'
 
