@@ -10,9 +10,10 @@ conf = {
 }
 
 theme = {
-	"bg": 'Black',
-	"fg": 'Red',
-	"font": 'segoe print'
+	"bg": "Black",
+	"fg": "Red",
+	"font": "segoe print",
+	"lrc": "#ffdddd"
 }
 
 
@@ -41,12 +42,12 @@ if __name__ == '__main__':
 	ut = Utano(conf)
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
-	root.title('Utano v3a')
+	root.title('Utano v4a')
 	root.resizable(width=False, height=False)
 	root.bind("<Button-2>", lambda e: ut.pause())
 
 	s_manager = ScenesManager(root, ut, theme)
-	ut.set_callbacks(next_song_call=s_manager.s_main.next_song_call)
+	ut.set_callbacks(next_song_call=s_manager.s_main.next_song_call, lrc_call=s_manager.s_main.lrc_call)
 	ut.next_song()
 
 	root.after(1, queue)

@@ -20,6 +20,7 @@ class Player:
 
 	def play(self, m: Song, status):
 		self._p.set_mrl(m.path)
+		m.reset()
 		if status:
 			self._p.play()
 		# self._p.set_position(0.95)
@@ -32,6 +33,9 @@ class Player:
 
 	def get_progress(self):
 		return self._p.get_position()
+
+	def get_time(self):
+		return self._p.get_time()
 
 	def set_volume(self, volume: int):
 		self._p.audio_set_volume(min(volume, 100))

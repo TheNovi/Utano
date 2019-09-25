@@ -8,6 +8,7 @@ from . import song, player
 class Utano:
 	def __init__(self, config):
 		self.next_song_call = print
+		self.lrc_call = print
 		self.config = config
 		self.songs: List[song.Song] = []
 		self.player = player.Player(self.config, self.next_song)
@@ -21,8 +22,9 @@ class Utano:
 	def _load_songs_(self):
 		self.songs = [song.Song(path) for path in glob(self.config["path"] + '*.*')]
 
-	def set_callbacks(self, next_song_call: Callable):
+	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable):
 		self.next_song_call = next_song_call
+		self.lrc_call = lrc_call
 
 	def get_actual_song(self):
 		return self.songs[self.actual_i]
@@ -44,7 +46,10 @@ class Utano:
 
 	def tick(self):
 		self.player.tick()
-		pass
+		if self.status and self.get_actual_song().lrc.active:
+			lrc = self.get_actual_song().lrc.tick(self.player.get_time())
+			if lrc:
+				self.lrc_call(lrc)
 
 	def pause(self):
 		if self.status:

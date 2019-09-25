@@ -1,18 +1,21 @@
 import tkinter
 
 from scenes.scene import Scene
+from utano.lyrics import Lrc, Drop
 
 
 # noinspection PyAttributeOutsideInit
 class Main(Scene):
 	def _init_(self):
 		super()._init_()
-		# self.v_name = tkinter.StringVar()
-		# self.v_artist = tkinter.StringVar()
 		self.l_artist = tkinter.Label(self, text='', bg=self.theme['bg'], fg=self.theme['fg'], font=(self.theme['font'], 15))
 		self.l_name = tkinter.Label(self, text='', bg=self.theme["bg"], fg=self.theme['fg'], font=(self.theme['font'], 25))
 		self.song_line = tkinter.Label(self, bg=self.theme['bg'], fg=self.theme['fg'], font=('helvetica', 5))
 
+		self.f_lrc = tkinter.Frame(self)
+		self.l_lrc = tkinter.Label(self.f_lrc, bg=self.theme['bg'], fg=self.theme['lrc'], font=('Comic Sans MS', 20, 'italic'))
+
+		self.l_lrc.pack(fill='both')
 		self.l_name.pack(fill='both')
 		self.l_artist.pack(fill='both')
 		self.song_line.pack(fill='both')
@@ -48,5 +51,16 @@ class Main(Scene):
 				h = " " + h + " "
 			return h
 		s = self.ut.get_actual_song()
+		if s.lrc.active:
+			self.f_lrc.pack(fill='both')
+			self.l_lrc['text'] = ''
+		else:
+			self.f_lrc.pack_forget()
 		self.l_name['text'] = add_spaces(s.name)
 		self.l_artist['text'] = add_spaces(s.artist)
+
+	def lrc_call(self, lrc):
+		if isinstance(lrc, Lrc):
+			self.l_lrc['text'] = "   " + lrc.text + "   "
+		elif isinstance(lrc, Drop):
+			print('Drop')

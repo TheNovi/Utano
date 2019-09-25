@@ -36,7 +36,7 @@ class Catalog(Scene):
 		self.sub_select = []
 		width = 40
 		for s in self.ut.songs:
-			f = s.artist + ' - ' + s.name
+			f = s.get_full_name()
 			if tkinter.re.match(r'.*{}.*'.format(tkinter.re.escape(reg)), f, tkinter.re.IGNORECASE):
 				self.l_catalog.insert('end', f)
 				self.sub_select.append(s)
