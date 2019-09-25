@@ -1,4 +1,4 @@
 # Utano
-Simple but powerfull music player
+Simple but powerful music player
 
-## More of docs comming in right before Beta
+## More of docs coming right before Beta
