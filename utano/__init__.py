@@ -51,14 +51,11 @@ class Utano:
 
 	def tick(self):
 		self.player.tick()
-		print(self.get_time())
 		if self.status and self.get_actual_song().lrc.active:
 			time = self.get_time()
 			lrc = self.get_actual_song().lrc.tick(time)
 			if lrc:
 				self.lrc_call(lrc)
-				# print(lrc.text)
-			# print(self.get_actual_song().lrc.get_p_bar(self.player.get_length(), time))
 
 	def get_time(self):
 		return self._time_buffer if not self.status else int(self._time_buffer + ((datetime.now() - self._time_now).total_seconds() * 1000))

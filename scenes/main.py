@@ -58,14 +58,18 @@ class Main(Scene):
 		self.l_artist = tkinter.Label(self, text='', bg=self.theme['bg'], fg=self.theme['fg'], font=(self.theme['font'], 15))
 		self.song_line = tkinter.Label(self, bg=self.theme['bg'], fg=self.theme['fg'], font=('helvetica', 5))
 
-		self.f_lrc = tkinter.Frame(self)
+		self.f_lrc = tkinter.Frame(self, bg=self.theme['bg'])
 		self.l_lrc = tkinter.Label(self.f_lrc, bg=self.theme['bg'], fg=self.theme['lrc'], font=('Comic Sans MS', 20, 'italic'))
+		self.lrc_line = tkinter.Label(self.f_lrc, bg=self.theme['bg'], fg=self.theme['lrc'], font=('helvetica', 5))
 		self.drop = _DropWrapper(self)
 
-		self.l_lrc.pack(fill='both')
 		self.l_name.pack(fill='both')
 		self.l_artist.pack(fill='both')
 		self.song_line.pack(fill='both')
+		self.l_lrc.pack(fill='y')
+		self.lrc_line.pack(fill='both')
+
+		self.last_lrc_bar = 0
 
 		for b in [
 			('<Button-1>', lambda e: self.ut.next_song()),
@@ -78,6 +82,9 @@ class Main(Scene):
 
 	def tick(self):
 		self.u_song_line()
+		lrc = self.ut.get_actual_song().lrc
+		if lrc.active:
+			self.u_lrc_line(lrc.get_p_bar(self.ut))
 		if self.drop.a > 0:
 			self.drop.tick()
 
@@ -85,6 +92,13 @@ class Main(Scene):
 		p = (1 - self.ut.player.get_progress())
 		p = min(1, max(0, p))
 		self.song_line['text'] = '-' * int(p * self.song_line.winfo_width()/2.3)
+
+	def u_lrc_line(self, p):
+		if p[1]:
+			self.last_lrc_bar = p[0] * self.l_lrc.winfo_width()/2.3
+			self.lrc_line['text'] = '-' * int(self.last_lrc_bar)
+		else:
+			self.lrc_line['text'] = '-' * int(p[0] * min(self.last_lrc_bar, self.f_lrc.winfo_width()/2.3))
 
 	def typed(self, event):
 		super().typed(event)
@@ -102,12 +116,14 @@ class Main(Scene):
 		self.drop.a = -1
 		s = self.ut.get_actual_song()
 		if s.lrc.active:
+			self.last_lrc_bar = self.f_lrc.winfo_width() / 2.3  # fixme Don't work on first song
 			self.f_lrc.pack(fill='both')
 			self.l_lrc['text'] = ''
 		else:
 			self.f_lrc.pack_forget()
-		self.l_name['text'] = add_spaces(s.name, 50 if s.lrc.active else 30)
-		self.l_artist['text'] = add_spaces(s.artist, 50 if s.lrc.active else 30)
+		min_spaces = 50 if s.lrc.active else 30
+		self.l_name['text'] = add_spaces(s.name, min_spaces)
+		self.l_artist['text'] = add_spaces(s.artist, min_spaces)
 
 	def lrc_call(self, lrc):
 		if isinstance(lrc, Lrc):

@@ -1,4 +1,5 @@
 from os import path
+from typing import Tuple
 
 import utano
 
@@ -22,9 +23,10 @@ class Lrc:
 
 class Lyrics:
 	def __init__(self, song: 'utano.song.Song'):
-		self.que = [Lrc(['0', ''])]
+		self.que = []
 		self._i = 0
 		self._start = 0
+		self.actual_text = ''
 		self.active = True
 		self.lrc = True
 		self.drops = True
@@ -59,21 +61,24 @@ class Lyrics:
 	def tick(self, time: int):
 		if self._i >= len(self.que):
 			return
-		if time > self.que[self._i].time:
-			if not (isinstance(self.que[self._i], Drop)):
-				self._start = self.que[self._i].time
+		lrc = self.que[self._i]
+		if time > lrc.time:
 			self._i += 1
+			if not (isinstance(lrc, Drop)):
+				self._start = lrc.time
+				self.actual_text = lrc.text
 			return self.que[self._i-1]
 
-	def get_p_bar(self, length, time) -> float:  # TODO reverse when empty
+	def get_p_bar(self, ut) -> Tuple[float, bool]:
 		def get_next_time():
 			for lrc in self.que[self._i:]:
 				if not (isinstance(lrc, Drop)):
 					return lrc.time
-			return length
+			return ut.player.get_length()
+		time = ut.get_time()
 		end = get_next_time()
-		dif = end - self._start
-		return (time-self._start)/max(1, dif)
+		out = (time-self._start)/max(1, end-self._start)
+		return (out, True) if self.actual_text else (1-out, False)
 
 	def reset(self):
 		self._i = 0
