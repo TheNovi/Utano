@@ -37,6 +37,9 @@ class Player:
 	def get_time(self):
 		return self._p.get_time()
 
+	def get_length(self):
+		return self._p.get_length()
+
 	def set_volume(self, volume: int):
 		self._p.audio_set_volume(min(volume, 100))
 

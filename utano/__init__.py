@@ -47,9 +47,12 @@ class Utano:
 	def tick(self):
 		self.player.tick()
 		if self.status and self.get_actual_song().lrc.active:
-			lrc = self.get_actual_song().lrc.tick(self.player.get_time())
+			time = self.player.get_time()  # FIXME Lags
+			lrc = self.get_actual_song().lrc.tick(time)
 			if lrc:
 				self.lrc_call(lrc)
+				# print(lrc.text)
+			# print(self.get_actual_song().lrc.get_p_bar(self.player.get_length(), time))
 
 	def pause(self):
 		if self.status:

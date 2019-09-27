@@ -22,8 +22,9 @@ class Lrc:
 
 class Lyrics:
 	def __init__(self, song: 'utano.song.Song'):
-		self.que = []
+		self.que = [Lrc(['0', ''])]
 		self._i = 0
+		self._start = 0
 		self.active = True
 		self.lrc = True
 		self.drops = True
@@ -59,8 +60,20 @@ class Lyrics:
 		if self._i >= len(self.que):
 			return
 		if time > self.que[self._i].time:
+			if not (isinstance(self.que[self._i], Drop)):
+				self._start = self.que[self._i].time
 			self._i += 1
 			return self.que[self._i-1]
+
+	def get_p_bar(self, length, time) -> float:  # TODO reverse when empty
+		def get_next_time():
+			for lrc in self.que[self._i:]:
+				if not (isinstance(lrc, Drop)):
+					return lrc.time
+			return length
+		end = get_next_time()
+		dif = end - self._start
+		return (time-self._start)/max(1, dif)
 
 	def reset(self):
 		self._i = 0
