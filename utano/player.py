@@ -34,9 +34,6 @@ class Player:
 	def get_progress(self):
 		return self._p.get_position()
 
-	def get_time(self):
-		return self._p.get_time()
-
 	def get_length(self):
 		return self._p.get_length()
 

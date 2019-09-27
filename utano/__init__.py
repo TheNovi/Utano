@@ -1,6 +1,7 @@
 from typing import List, Callable
 from random import shuffle
 from glob import glob
+from datetime import datetime
 
 from . import song, player
 
@@ -15,6 +16,8 @@ class Utano:
 
 		self.actual_i = -1
 		self.status = True  # Playing/Paused
+		self._time_buffer = 0
+		self._time_now = None
 
 		self._load_songs_()
 		shuffle(self.songs)
@@ -37,6 +40,8 @@ class Utano:
 		elif self.actual_i < 0:
 			self.actual_i = len(self.songs) - 1
 
+		self._time_buffer = 0
+		self._time_now = datetime.now()
 		self.player.play(self.get_actual_song(), self.status)
 		self.next_song_call()
 
@@ -46,17 +51,23 @@ class Utano:
 
 	def tick(self):
 		self.player.tick()
+		print(self.get_time())
 		if self.status and self.get_actual_song().lrc.active:
-			time = self.player.get_time()  # FIXME Lags
+			time = self.get_time()
 			lrc = self.get_actual_song().lrc.tick(time)
 			if lrc:
 				self.lrc_call(lrc)
 				# print(lrc.text)
 			# print(self.get_actual_song().lrc.get_p_bar(self.player.get_length(), time))
 
+	def get_time(self):
+		return self._time_buffer if not self.status else int(self._time_buffer + ((datetime.now() - self._time_now).total_seconds() * 1000))
+
 	def pause(self):
 		if self.status:
+			self._time_buffer = self.get_time()
 			self.player.pause()
 		else:
+			self._time_now = datetime.now()
 			self.player.un_pause()
 		self.status = not self.status
