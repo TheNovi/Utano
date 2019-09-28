@@ -7,7 +7,8 @@ from scenes import ScenesManager
 
 conf = {
 	"path": "./",
-	"stats_path": 'nudes/stats.json',
+	"theme_path": "nudes/theme.json",
+	"stats_path": "nudes/stats.json",
 	"volume": 100
 }
 
@@ -40,7 +41,7 @@ def queue():
 
 if __name__ == '__main__':
 	conf = load('nudes/conf.json', conf)
-	theme = load('nudes/theme.json', theme)
+	theme = load(conf['theme_path'], theme)
 	ut = Utano(conf)
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
