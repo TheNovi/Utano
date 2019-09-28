@@ -57,7 +57,7 @@ class Stats:
 
 		Achievement("Is this the end?", "Complete your playlist", 'playlist completed', 1),
 
-		Achievement("IT'S OVER ONE HUNDRED !!! Wait, never mind.", "Try to set volume over 100", 'h_volume max', 1),
+		Achievement("IT'S OVER ONE HUNDRED !!! Wait, never mind.", "h_Try to set volume over 100", 'h_volume max', 1),
 		Achievement("Long playlist", "h_Have over 100 songs in playlist", 'h_playlist count', 1)
 	]
 

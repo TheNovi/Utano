@@ -38,5 +38,7 @@ class Stats(Scene):
 		elif event.keysym == 'Up':
 			self.manager.s_volume.switch_to_me()
 		elif event.keysym == 'Right':
+			self.manager.s_achieve.switch_to_me()
+		elif event.keysym == 'Left':
 			self.manager.escape()
 
