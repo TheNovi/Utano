@@ -1,4 +1,4 @@
-from scenes import main, volume, catalog
+from scenes import main, volume, catalog, stats
 
 
 class ScenesManager:
@@ -11,6 +11,7 @@ class ScenesManager:
 		self.s_main = main.Main(*args)
 		self.s_volume = volume.Volume(*args)
 		self.s_catalog = catalog.Catalog(*args)
+		self.s_stats = stats.Stats(*args)
 		# noinspection PyTypeChecker
 		self.activated: main.Scene = type("TypeScene", (), {'deactivate': lambda: None})
 

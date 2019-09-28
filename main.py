@@ -43,7 +43,7 @@ if __name__ == '__main__':
 	ut = Utano(conf)
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
-	root.title('Utano v5a')
+	root.title('Utano v6a')
 	root.resizable(width=False, height=False)
 	root.bind("<Button-2>", lambda e: ut.pause())
 

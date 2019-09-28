@@ -106,6 +106,8 @@ class Main(Scene):
 			self.manager.s_catalog.switch_to_me()  # FIXME Sometimes e_search don't get focused
 		elif event.keysym == 'Up':
 			self.manager.s_volume.switch_to_me()
+		elif event.keysym == 'Right':
+			self.manager.s_stats.switch_to_me()
 
 	def next_song_call(self):
 		def add_spaces(h, offset=30):  # Adding some spaces around names

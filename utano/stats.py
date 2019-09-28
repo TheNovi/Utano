@@ -77,7 +77,7 @@ class Stats:
 	def __init__(self, path):
 		self.path = path
 		self.achieve_got_call = print
-		self.stats = self._load()
+		self.stats: dict = self._load()
 		[x.check(self.stats) for x in Stats.achievements]
 
 	def set(self, key, count):
