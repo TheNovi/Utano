@@ -1,3 +1,4 @@
+import keyboard
 import tkinter
 import json
 
@@ -43,7 +44,7 @@ if __name__ == '__main__':
 	ut = Utano(conf)
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
-	root.title('Utano v7a')
+	root.title('Utano v1b')
 	root.resizable(width=False, height=False)
 	root.bind("<Button-2>", lambda e: ut.pause())
 
@@ -51,6 +52,20 @@ if __name__ == '__main__':
 	ut.set_callbacks(next_song_call=s_manager.s_main.next_song_call, lrc_call=s_manager.s_main.lrc_call)
 	ut.next_song(stat=False)
 	ut.stats.add(ut.stats.CheatSheet.program_started)
+
+	# Multimedia keys
+	# noinspection PyBroadException
+	try:
+		# keyboard.add_hotkey('play/pause media', lambda: but_ppe(None))
+		# keyboard.add_hotkey('next track', lambda: but_next_song_e(None))
+		# keyboard.add_hotkey('previous track', lambda: but_previous_song_e(None))
+		# keyboard.add_hotkey('stop media', lambda: end())
+		keyboard.add_hotkey(-179, lambda: ut.pause())
+		keyboard.add_hotkey(-176, lambda: ut.next_song())
+		keyboard.add_hotkey(-177, lambda: ut.next_song(-1))
+		keyboard.add_hotkey(-178, lambda: root.quit())
+	except:
+		pass
 
 	root.after(1, queue)
 	root.mainloop()

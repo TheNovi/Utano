@@ -83,3 +83,4 @@ class Utano:
 	def end(self):
 		self.stats.add(self.stats.CheatSheet.total_time, int(self.get_time()/1000))
 		self.stats.save()
+		self.player.end()

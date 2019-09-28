@@ -42,3 +42,8 @@ class Player:
 
 	def get_volume(self):
 		return self._p.audio_get_volume()
+
+	def end(self):
+		self._p.stop()
+		self._p.release()
+		self._inst_.release()
