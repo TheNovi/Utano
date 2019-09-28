@@ -6,6 +6,7 @@ from scenes import ScenesManager
 
 conf = {
 	"path": "./",
+	"stats_path": 'nudes/stats.json',
 	"volume": 100
 }
 
@@ -48,7 +49,9 @@ if __name__ == '__main__':
 
 	s_manager = ScenesManager(root, ut, theme)
 	ut.set_callbacks(next_song_call=s_manager.s_main.next_song_call, lrc_call=s_manager.s_main.lrc_call)
-	ut.next_song()
+	ut.next_song(stat=False)
+	ut.stats.add(ut.stats.CheatSheet.program_started)
 
 	root.after(1, queue)
 	root.mainloop()
+	ut.end()
