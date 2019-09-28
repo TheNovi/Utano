@@ -12,8 +12,8 @@ class Utano:
 		self.lrc_call = print
 		self.config = config
 		self.songs: List[song.Song] = []
-		self.player = player.Player(self.config, lambda: self.next_song(stat=stats.Stats.CheatSheet.song_played))
 		self.stats = stats.Stats(config['stats_path'])
+		self.player = player.Player(self.config, lambda: self.next_song(stat=stats.Stats.CheatSheet.song_played))
 
 		self.actual_i = -1
 		self.status = True  # Playing/Paused
@@ -21,7 +21,8 @@ class Utano:
 		self._time_now = None
 
 		self._load_songs_()
-		self.stats.set(self.stats.CheatSheet.h_playlist_count, len(self.songs))
+		if len(self.songs) > 100:
+			self.stats.set(self.stats.CheatSheet.h_playlist_count, 1)
 		shuffle(self.songs)
 
 	def _load_songs_(self):

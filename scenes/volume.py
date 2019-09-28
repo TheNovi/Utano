@@ -41,6 +41,7 @@ class Volume(Scene):
 		self.timer = datetime.now()
 		a = int(self.ut.player.get_volume() + event.delta / 120)
 		self.ut.player.set_volume(a)
-		self.ut.stats.set(self.ut.stats.CheatSheet.h_volume_max, a)
+		if a > 100:
+			self.ut.stats.set(self.ut.stats.CheatSheet.h_volume_max, 1)
 		self.master.after(2)
 		self.v_volume.set(self.ut.player.get_volume())
