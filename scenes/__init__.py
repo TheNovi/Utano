@@ -3,11 +3,11 @@ from scenes import main, volume, catalog, stats, achieve
 
 class ScenesManager:
 	def __init__(self, root, utano, theme):
-		self._root_ = root
-		self._ut_ = utano
-		self._theme_ = theme
+		self.root = root
+		self.ut = utano
+		self.theme = theme
 
-		args = (self._root_, self, self._ut_, self._theme_)
+		args = (self.root, self, self.ut, self.theme)
 		self.s_main = main.Main(*args)
 		self.s_volume = volume.Volume(*args)
 		self.s_catalog = catalog.Catalog(*args)
@@ -16,8 +16,8 @@ class ScenesManager:
 		# noinspection PyTypeChecker
 		self.activated: main.Scene = type("TypeScene", (), {'deactivate': lambda: None})
 
-		self._root_.bind('<Escape>', self.escape)
-		self._root_.bind('<Key>', self.typed)
+		self.root.bind('<Escape>', self.escape)
+		self.root.bind('<Key>', self.typed)
 
 		self.s_main.switch_to_me()
 

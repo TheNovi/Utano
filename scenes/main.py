@@ -126,6 +126,7 @@ class Main(Scene):
 		min_spaces = 50 if s.lrc.active else 30
 		self.l_name['text'] = add_spaces(s.name, min_spaces)
 		self.l_artist['text'] = add_spaces(s.artist, min_spaces)
+		self.manager.root.title(s.get_full_name(self.ut.config['reverse_title']))
 
 	def lrc_call(self, lrc):
 		if isinstance(lrc, Lrc):

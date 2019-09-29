@@ -9,7 +9,9 @@ conf = {
 	"path": "./",
 	"theme_path": "nudes/theme.json",
 	"stats_path": "nudes/stats.json",
-	"volume": 100
+	"volume": 50,
+	"reverse_title": False,
+	"reverse_in_list": False
 }
 
 theme = {

@@ -18,5 +18,7 @@ class Song:
 	def reset(self):
 		self.lrc.reset()
 
-	def get_full_name(self):
+	def get_full_name(self, reverse=False):
+		if reverse:
+			return self.name + ' - ' + self.artist
 		return self.artist + ' - ' + self.name
