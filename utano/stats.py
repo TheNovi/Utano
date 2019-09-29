@@ -49,7 +49,7 @@ class Stats:
 
 		Achievement("One average song.", "Listen at least 3 minutes", 'total time', 3 * 60),
 		Achievement("One hour.", "Listen at least 1 hour", 'total time', 60 * 60),
-		Achievement("Ten hour version?", "Listen at least 10 hours", 'total time', 60 * 60),
+		Achievement("Ten hour version?", "Listen at least 10 hours", 'total time', 60 * 60 * 10),
 		Achievement("Well spent day.", "Listen at least 1 day", 'total time', 60 * 60 * 24),
 
 		Achievement("How was that melody again?", "Replay {} songs", 'song replayed', 5),

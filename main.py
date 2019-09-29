@@ -48,6 +48,7 @@ if __name__ == '__main__':
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
 	root.title('Utano v1b')
+	root.iconbitmap(default="icon.ico")
 	root.resizable(width=False, height=False)
 	root.bind("<Button-2>", lambda e: ut.pause())
 
