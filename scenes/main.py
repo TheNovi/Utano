@@ -71,9 +71,10 @@ class Main(Scene):
 
 		self.last_lrc_bar = 0
 
+		tmp = (3, 1) if self.ut.config['switch_controls'] else (1, 3)
 		for b in [
-			('<Button-1>', lambda e: self.ut.next_song()),
-			('<Button-3>', lambda e: self.ut.next_song(-1)),
+			(f'<Button-{tmp[0]}>', lambda e: self.ut.next_song()),
+			(f'<Button-{tmp[1]}>', lambda e: self.ut.next_song(-1)),
 			('<MouseWheel>', lambda event: self.manager.s_volume.switch_to_me() or self.manager.s_volume.vol_change_e(event))
 		]:
 			self.l_name.bind(*b)

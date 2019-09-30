@@ -16,8 +16,8 @@ Go to [releases](https://github.com/TheNovi/Utano/releases) and download the lat
 - Install python (3.7 or newer)
 - Install [vlc player](https://www.videolan.org/vlc/index.cs.html)
 - Get this repo
-- Install pipfile (requirements.txt coming soon)
-- To `conf.json` write your full path to the folder with music (for more info about config file read further).
+- Install pipfile (or install all packages in requirements.txt)
+- Make a file named `conf.json` and write your full path to the folder with music, to it (for more info about config file read further).
 - You may also need to edit some default paths in `main.py`'s conf variable and default path to `conf.json` itself (first line after "if main")
 - Run `main.py`
 - If there was any issue while following these steps, or program doesn't run at all. Please don't hesitate to write a [issue](https://github.com/TheNovi/Utano/issues) (I'm too lazy to properly test this)
@@ -34,8 +34,9 @@ Better and more ways to personalize this coming soon. Until then:<br>
 ### Controls are under heavy development right now, but here is some summary at least:
 - Control songs by area with song name and artist:
     - Left-click for next song.
-    - Press mouse wheel to pause/resume.
     - Right-click for the previous song.
+        - Can be switched in `conf.json`
+    - Press mouse wheel to pause/resume.
     - Move your mouse into the window and scroll the mouse wheel to change the volume
     - Start typing to search
     - Left/Right (This is going to be changed a lot) to show stats from there:
@@ -55,6 +56,7 @@ Better and more ways to personalize this coming soon. Until then:<br>
 - `theme_path`: path to theme.json (default: "./theme.json")
 - `stats_path`: path to theme.json (default: "./stats.json")
 - `volume`: starting volume (default: 50)
+- `switch_controls`: switch song switching controls (only mouse buttons) (default: False)
 - `reverse_title`: reverse full song name ("artist - name") in the title (default: False)
 - `reverse_in_list`: ^^^ but in the catalog (default: False)
 #### Theme file (`theme.json`)

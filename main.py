@@ -10,6 +10,7 @@ conf = {
 	"theme_path": "nudes/theme.json",
 	"stats_path": "nudes/stats.json",
 	"volume": 50,
+	"switch_controls": False,
 	"reverse_title": False,
 	"reverse_in_list": False
 }
