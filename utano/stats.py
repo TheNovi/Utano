@@ -13,7 +13,7 @@ class Achievement:
 		if stat[self.key] >= self.count and not self.got_it:
 			self.got_it = True
 			if popup:
-				popup(f'Got {self.name} - {self.desc}')
+				popup(self)
 
 
 class Stats:

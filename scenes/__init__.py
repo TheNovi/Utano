@@ -1,4 +1,4 @@
-from scenes import main, volume, catalog, stats, achieve
+from scenes import main, volume, catalog, stats, achieve, notification
 
 
 class ScenesManager:
@@ -6,6 +6,8 @@ class ScenesManager:
 		self.root = root
 		self.ut = utano
 		self.theme = theme
+
+		self.notifications = []
 
 		args = (self.root, self, self.ut, self.theme)
 		self.s_main = main.Main(*args)
@@ -23,6 +25,10 @@ class ScenesManager:
 
 	def tick(self):
 		self.activated.tick()
+		for n in self.notifications:
+			if n.tick():
+				n.destroy()
+				self.notifications.remove(n)
 
 	def typed(self, event):
 		if event.keysym in ['Up', 'Left', 'Down', 'Right']:
@@ -38,3 +44,10 @@ class ScenesManager:
 
 	def escape(self, *_, **__):
 		self.s_main.switch_to_me()
+
+	def achieve_call(self, achievement):
+		self.show_notification()
+		self.s_achieve.pack_achieve(achievement, self.notifications[-1])
+
+	def show_notification(self, time: int = 5):
+		self.notifications.append(notification.Notification(self.root, self, self.ut, self.theme).activate(time))

@@ -28,9 +28,10 @@ class Utano:
 	def _load_songs_(self):
 		self.songs = [song.Song(path) for path in glob(self.config["path"] + '*.*')]
 
-	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable):
+	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable, achieve_call: Callable):
 		self.next_song_call = next_song_call
 		self.lrc_call = lrc_call
+		self.stats.achieve_got_call = achieve_call
 
 	def get_actual_song(self):
 		return self.songs[self.actual_i]
