@@ -57,6 +57,8 @@ class Lyrics:
 					self.que.append(Drop(t))
 			elif self.lrc:
 				self.que.append(Lrc(t))
+				if len(self.que) > 1 and self.que[-1].time < self.que[-2].time:
+					self.que[-1].time = self.que[-2].time
 
 	def tick(self, time: int):
 		if self._i >= len(self.que):
