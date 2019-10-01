@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 
 class Achievement:
@@ -18,6 +19,7 @@ class Achievement:
 
 class Stats:
 	_stats = [
+		'stats created',
 		'program started',
 		'song played',
 		'song skipped',
@@ -99,6 +101,8 @@ class Stats:
 				c = json.load(f)
 		except Exception as e:
 			print(e)
+		if not c:
+			c[Stats._stats[0]] = datetime.now().strftime("%Y-%m-%d %H:%M")
 		for k in Stats._stats:
 			if k not in c:
 				c[k] = 0
