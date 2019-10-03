@@ -10,15 +10,17 @@ Simple but powerful music player written (by the guy who doesn't speak English) 
 - And it has achievements.
 
 # Install
-Install [vlc player](https://www.videolan.org/vlc/index.cs.html)<br>
-Go to [releases](https://github.com/TheNovi/Utano/releases) and download the latest version
+- Install [vlc player](https://www.videolan.org/vlc/index.cs.html)
+- Add vlc to your system path
+- Go to [releases](https://github.com/TheNovi/Utano/releases) and download the latest version
+- Write your full path to the folder with music, to `home/config.json` (for more info about config file read further).
 #### From source
 - Install python (3.7 or newer)
 - Install [vlc player](https://www.videolan.org/vlc/index.cs.html)
+- Add vlc to your system path
 - Get this repo
 - Install pipfile (or install all packages in requirements.txt)
-- Make a file named `conf.json` and write your full path to the folder with music, to it (for more info about config file read further).
-- You may also need to edit some default paths in `main.py`'s conf variable and default path to `conf.json` itself (first line after "if main")
+- Write your full path to the folder with music, to `home/config.json` (for more info about config file read further).
 - Run `main.py`
 - If there was any issue while following these steps, or program doesn't run at all. Please don't hesitate to write a [issue](https://github.com/TheNovi/Utano/issues) (I'm too lazy to properly test this)
 

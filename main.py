@@ -6,12 +6,12 @@ from utano import *
 from scenes import ScenesManager
 
 conf = {
-	"path": "./",
-	"theme_path": "nudes/theme.json",
-	"stats_path": "nudes/stats.json",
+	"path": "home/music/",
+	"theme_path": "home/theme.json",
+	"stats_path": "home/stats.json",
 	"volume": 50,
 	"switch_controls": False,
-	"reverse_title": False,
+	"reverse_title": True,
 	"reverse_in_list": False
 }
 
@@ -24,6 +24,7 @@ theme = {
 
 
 def load(path: str, default: dict) -> dict:
+	print(path)
 	c = {}
 	try:
 		with open(path, 'r') as f:
@@ -42,13 +43,17 @@ def queue():
 	root.after(10, queue)
 
 
+DEBUG = False
+
 if __name__ == '__main__':
-	conf = load('nudes/conf.json', conf)
+	conf = load(f'{"nudes/" if DEBUG else "home/"}conf.json', conf)
+	if not conf['path'].endswith('/'):
+		conf['path'] += '/'
 	theme = load(conf['theme_path'], theme)
 	ut = Utano(conf)
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
-	root.title('Utano v1b')
+	root.title('Utano Beta')
 	root.iconbitmap(default="icon.ico")
 	root.resizable(width=False, height=False)
 	root.bind("<Button-2>", lambda e: ut.pause())
