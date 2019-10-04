@@ -1,4 +1,5 @@
 import keyboard
+from sys import argv
 import tkinter
 import json
 
@@ -44,7 +45,7 @@ def queue():
 	root.after(10, queue)
 
 
-DEBUG = True
+DEBUG = [x for x in argv if x.lower() in ['-d', '--debug']]
 
 if __name__ == '__main__':
 	conf = load(f'{"nudes/" if DEBUG else "home/"}conf.json', conf)
