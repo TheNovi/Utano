@@ -16,6 +16,13 @@ class Volume(Scene):
 
 		self.l_volume.bind('<MouseWheel>', self.vol_change_e)
 
+		tmp = (3, 1) if self.ut.config['switch_controls'] else (1, 3)
+		for b in [
+			(f'<Button-{tmp[0]}>', lambda e: self.ut.next_song() or self.manager.escape()),
+			(f'<Button-{tmp[1]}>', lambda e: self.ut.next_song(-1) or self.manager.escape())
+		]:
+			self.l_volume.bind(*b)
+
 		self.l_volume.pack(fill='both')
 
 	def activate(self):
