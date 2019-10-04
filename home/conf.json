@@ -3,6 +3,7 @@
 	"theme_path": "home/theme.json",
 	"stats_path": "home/stats.json",
 	"volume": 50,
+  	"disable_stop_button": true,
 	"switch_controls": false,
 	"reverse_title": true,
 	"reverse_in_list": false

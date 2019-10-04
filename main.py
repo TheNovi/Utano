@@ -10,6 +10,7 @@ conf = {
 	"theme_path": "home/theme.json",
 	"stats_path": "home/stats.json",
 	"volume": 50,
+	"disable_stop_button": True,
 	"switch_controls": False,
 	"reverse_title": True,
 	"reverse_in_list": False
@@ -43,7 +44,7 @@ def queue():
 	root.after(10, queue)
 
 
-DEBUG = False
+DEBUG = True
 
 if __name__ == '__main__':
 	conf = load(f'{"nudes/" if DEBUG else "home/"}conf.json', conf)
@@ -73,7 +74,7 @@ if __name__ == '__main__':
 		keyboard.add_hotkey(-179, lambda: ut.pause())
 		keyboard.add_hotkey(-176, lambda: ut.next_song())
 		keyboard.add_hotkey(-177, lambda: ut.next_song(-1))
-		keyboard.add_hotkey(-178, lambda: root.quit())
+		keyboard.add_hotkey(-178, lambda: conf['disable_stop_button'] or root.quit())
 	except:
 		pass
 
