@@ -89,8 +89,9 @@ class Stats:
 		[x.check(self.stats, self.achieve_got_call) for x in Stats.achievements if not x.got_it and x.key == key]
 
 	def add(self, key, count=1):
-		if not key:
+		if not (key and count):
 			return
+		# print(key, count)
 		self.stats[key] += count
 		[x.check(self.stats, self.achieve_got_call) for x in Stats.achievements if not x.got_it and x.key == key]
 
