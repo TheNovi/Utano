@@ -26,7 +26,7 @@ class Utano:
 		shuffle(self.songs)
 
 	def _load_songs_(self):
-		self.songs = [song.Song(path) for path in glob(self.config["path"] + '*.*')]
+		self.songs = [song.Song(path) for path in glob(f"{self.config['path']}/**/*.*")]
 
 	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable, achieve_call: Callable):
 		self.next_song_call = next_song_call
