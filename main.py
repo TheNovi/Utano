@@ -10,6 +10,7 @@ conf = {
 	"path": "home/music/",
 	"theme_path": "home/theme.json",
 	"stats_path": "home/stats.json",
+	"lrc_path": "home/lrc/",
 	"volume": 50,
 	"start_paused": False,
 	"auto_play": False,
@@ -54,6 +55,8 @@ if __name__ == '__main__':
 	conf = load(f'{"nudes/" if DEBUG else "home/"}conf.json', conf)
 	if not conf['path'].endswith('/'):
 		conf['path'] += '/'
+	if not conf['lrc_path'].endswith('/'):
+		conf['lrc_path'] += '/'
 	theme = load(conf['theme_path'], theme)
 	ut = Utano(conf)
 	root = tkinter.Tk()

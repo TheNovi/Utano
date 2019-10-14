@@ -2,10 +2,10 @@ from utano.lyrics import Lyrics
 
 
 class Song:
-	def __init__(self, path: str):
+	def __init__(self, path: str, conf):
 		self.path: str = path
 		self.name, self.artist = self._get_name()
-		self.lrc = Lyrics(self)
+		self.lrc = Lyrics(self, conf)
 
 	# Getting song name/artist from file path
 	def _get_name(self):
