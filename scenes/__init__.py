@@ -1,4 +1,4 @@
-from scenes import main, volume, catalog, stats, achieve, notification
+from scenes import main, volume, select, catalog, stats, achieve, notification
 
 
 class ScenesManager:
@@ -12,6 +12,7 @@ class ScenesManager:
 		args = (self.root, self, self.ut, self.theme)
 		self.s_main = main.Main(*args)
 		self.s_volume = volume.Volume(*args)
+		self.s_select = select.Select(*args)
 		self.s_catalog = catalog.Catalog(*args)
 		self.s_stats = stats.Stats(*args)
 		self.s_achieve = achieve.Achieve(*args)
@@ -41,6 +42,7 @@ class ScenesManager:
 		self.activated.deactivate()
 		self.activated = to
 		self.activated.activate()
+		self.activated.focus_set()
 
 	def escape(self, *_, **__):
 		self.s_main.switch_to_me()

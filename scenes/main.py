@@ -103,10 +103,10 @@ class Main(Scene):
 
 	def typed(self, event):
 		super().typed(event)
-		if event.keysym == 'Down':
+		if event.keysym == 'Up':
+			self.manager.s_select.switch_to_me()
+		elif event.keysym == 'Down':
 			self.manager.s_catalog.switch_to_me()  # FIXME Sometimes e_search don't get focused
-		elif event.keysym == 'Up':
-			self.manager.s_volume.switch_to_me()
 		elif event.keysym == 'Right':
 			self.manager.s_stats.switch_to_me()
 

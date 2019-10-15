@@ -11,6 +11,7 @@ class Utano:
 		self.next_song_call = print
 		self.lrc_call = print
 		self.config = config
+		self.all_songs: List[song.Song] = []
 		self.songs: List[song.Song] = []
 		self.stats = stats.Stats(config['stats_path'])
 		self.player = player.Player(self.config, lambda: self.next_song(stat=stats.Stats.CheatSheet.song_played))
@@ -20,18 +21,27 @@ class Utano:
 		self._time_buffer = 0
 		self._time_now = None
 
-		self._load_songs_()
+		self._load_all_songs_()
 		if len(self.songs) > 100:
 			self.stats.set(self.stats.CheatSheet.h_playlist_count, 1)
 		shuffle(self.songs)
 
-	def _load_songs_(self):
-		self.songs = [song.Song(path, self.config) for path in glob(f"{self.config['path']}/**/*.*")]  # TODO Ignore non audio files
+	def _load_all_songs_(self):
+		self.all_songs = [song.Song(path, self.config) for path in glob(f"{self.config['path']}/**/*.*")]  # TODO Ignore non audio files
+		self.songs = self.all_songs
 
 	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable, achieve_call: Callable):
 		self.next_song_call = next_song_call
 		self.lrc_call = lrc_call
 		self.stats.achieve_got_call = achieve_call
+
+	def apply_song_select(self, songs: List[song.Song] = None):
+		if songs:
+			self.songs = songs
+		else:
+			self.songs = self.all_songs
+		self.actual_i = 0
+		self.next_song(0, None)
 
 	def get_actual_song(self):
 		return self.songs[self.actual_i]
