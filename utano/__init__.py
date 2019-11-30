@@ -33,7 +33,7 @@ class Utano:
 	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable, achieve_call: Callable):
 		self.next_song_call = next_song_call
 		self.lrc_call = lrc_call
-		self.stats.achieve_got_call = achieve_call
+		self.stats.set_callback(achieve_call)
 
 	def apply_song_select(self, songs: List[song.Song] = None):
 		if songs:
@@ -51,7 +51,7 @@ class Utano:
 			self.status = True
 		if i == -1:
 			stat = self.stats.CheatSheet.song_replayed
-			if self.config['replay_when_progress'] > 0 and self.get_time() > self.config['replay_when_progress']*1000:
+			if self.config['replay_when_progress'] > 0 and self.get_time() > self.config['replay_when_progress'] * 1000:
 				i = 0
 		self.actual_i += i
 		if self.actual_i >= len(self.songs):
@@ -61,7 +61,7 @@ class Utano:
 		elif self.actual_i < 0:
 			self.actual_i = len(self.songs) - 1
 
-		self.stats.add(self.stats.CheatSheet.total_time, int(self.get_time()/1000))
+		self.stats.add(self.stats.CheatSheet.total_time, int(self.get_time() / 1000))
 		self._time_buffer = 0
 		self._time_now = datetime.now()
 		self.player.play(self.get_actual_song(), self.status)
@@ -96,6 +96,6 @@ class Utano:
 		self.status = not self.status
 
 	def end(self):
-		self.stats.add(self.stats.CheatSheet.total_time, int(self.get_time()/1000))
+		self.stats.add(self.stats.CheatSheet.total_time, int(self.get_time() / 1000))
 		self.stats.save()
 		self.player.end()
