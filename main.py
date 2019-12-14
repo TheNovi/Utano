@@ -67,7 +67,7 @@ if __name__ == '__main__':
 	root.bind("<Button-2>", lambda e: ut.pause())
 
 	s_manager = ScenesManager(root, ut, theme)
-	ut.set_callbacks(next_song_call=s_manager.s_main.next_song_call, lrc_call=s_manager.s_main.lrc_call, achieve_call=s_manager.achieve_call)
+	ut.set_callbacks(next_song_call=s_manager.next_song_call, lrc_call=s_manager.s_main.lrc_call, achieve_call=s_manager.achieve_call)
 	ut.next_song(stat=False)
 	ut.stats.add(ut.stats.CheatSheet.program_started)
 

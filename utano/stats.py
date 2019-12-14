@@ -54,7 +54,7 @@ class Lvl:
 	def __repr__(self) -> str:
 		return f"<Nlvl: lvl: {self.lvl}, exp: {self.exp}, total_next: {self.total_exp_to_next_lvl()}>"
 
-	def save(self) -> dict:  # TODO Save method
+	def save(self) -> dict:
 		return {'l': self._lvl, 'e': self._exp}
 
 	def load(self, d: dict):
@@ -74,6 +74,8 @@ class Stats:
 		'song selected': 2,
 		'playlist completed': 5,
 		'total time': 0,
+		'songs guessed correctly': 5,
+		'songs guessed incorrectly': 0,
 
 		'h_volume max': 0,
 		'h_playlist count': 0
@@ -118,6 +120,8 @@ class Stats:
 		song_selected = 'song selected'
 		playlist_completed = 'playlist completed'
 		total_time = 'total time'
+		songs_guessed_correctly = 'songs guessed correctly'
+		songs_guessed_incorrectly = 'songs guessed incorrectly'
 
 		h_volume_max = 'h_volume max'
 		h_playlist_count = 'h_playlist count'

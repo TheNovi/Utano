@@ -28,15 +28,15 @@ class Catalog(Scene):
 	def activate(self):
 		super().activate()
 		self.e_search.delete(0, 'end')
-		self.filter(i=self.ut.actual_i)
+		self.filter(i=self.utano.actual_i)
 		self.e_search.focus_set()
 
 	def filter(self, reg='', i=0):
 		self.l_catalog.delete(0, 'end')
 		self.sub_select = []
 		width = 40
-		for s in self.ut.songs:
-			f = s.get_full_name(self.ut.config['reverse_in_list'])
+		for s in self.utano.songs:
+			f = s.get_full_name(self.utano.config['reverse_in_list'])
 			if tkinter.re.match(r'.*{}.*'.format(tkinter.re.escape(reg)), f, tkinter.re.IGNORECASE):
 				self.l_catalog.insert('end', f)
 				self.sub_select.append(s)
@@ -52,11 +52,11 @@ class Catalog(Scene):
 		if self.l_catalog.curselection() != ():
 			s = self.l_catalog.curselection()
 			s = self.sub_select[s[0]]
-			self.ut.play_this(s)
+			self.utano.play_this(s)
 			self.manager.escape()
 
 	def activated(self):  # Selected by <Return>
 		s = self.l_catalog.index('active')
 		s = self.sub_select[s]
-		self.ut.play_this(s)
+		self.utano.play_this(s)
 		self.manager.escape()

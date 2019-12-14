@@ -16,10 +16,10 @@ class Volume(Scene):
 
 		self.l_volume.bind('<MouseWheel>', self.vol_change_e)
 
-		tmp = (3, 1) if self.ut.config['switch_controls'] else (1, 3)
+		tmp = (3, 1) if self.utano.config['switch_controls'] else (1, 3)
 		for b in [
-			(f'<Button-{tmp[0]}>', lambda e: self.ut.next_song() or self.manager.escape()),
-			(f'<Button-{tmp[1]}>', lambda e: self.ut.next_song(-1) or self.manager.escape())
+			(f'<Button-{tmp[0]}>', lambda e: self.utano.next_song() or self.manager.escape()),
+			(f'<Button-{tmp[1]}>', lambda e: self.utano.next_song(-1) or self.manager.escape())
 		]:
 			self.l_volume.bind(*b)
 
@@ -28,7 +28,7 @@ class Volume(Scene):
 	def activate(self):
 		super().activate()
 		self.timer = datetime.now()
-		self.v_volume.set(self.ut.player.get_volume())
+		self.v_volume.set(self.utano.player.get_volume())
 		self.l_volume.config(fg=self.theme['fg'])
 
 	def tick(self):
@@ -46,9 +46,9 @@ class Volume(Scene):
 
 	def vol_change_e(self, event):
 		self.timer = datetime.now()
-		a = int(self.ut.player.get_volume() + event.delta / 120)
-		self.ut.player.set_volume(a)
+		a = int(self.utano.player.get_volume() + event.delta / 120)
+		self.utano.player.set_volume(a)
 		if a > 100:
-			self.ut.stats.set(self.ut.stats.CheatSheet.h_volume_max, 1)
+			self.utano.stats.set(self.utano.stats.CheatSheet.h_volume_max, 1)
 		self.master.after(2)
-		self.v_volume.set(self.ut.player.get_volume())
+		self.v_volume.set(self.utano.player.get_volume())

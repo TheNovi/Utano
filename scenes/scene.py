@@ -1,14 +1,14 @@
 from tkinter import Frame
 
-from utano import Utano
 import scenes
+from utano import Utano
 
 
 class Scene(Frame):
 	def __init__(self, master, manager: 'scenes.ScenesManager', utano: Utano, theme, **kw):
 		super().__init__(master, bg=theme['bg'], **kw)
 		self.manager: 'scenes.ScenesManager' = manager
-		self.ut: Utano = utano
+		self.utano: Utano = utano
 		self.theme = theme
 		self._init_()
 
@@ -17,6 +17,9 @@ class Scene(Frame):
 
 	def activate(self):
 		self.pack(fill='both')
+
+	def activate_mod(self):  # Called when mod is switched
+		pass
 
 	def tick(self):
 		pass
