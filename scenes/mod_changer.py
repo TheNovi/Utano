@@ -9,7 +9,7 @@ class ModChanger(Scene):
 		super()._init_()
 		self.tmp_mods = [
 			{'n': 'Main', 'm': self.manager.s_main.activate_mod},
-			{'n': 'Guessing game', 'm': self.manager.gue_main.activate_mod}
+			{'n': 'Guess game', 'm': self.manager.gue_main.activate_mod}
 		]
 		self.sub_select = []
 

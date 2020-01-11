@@ -42,7 +42,7 @@ class Main(Scene):
 	def activate_mod(self):
 		self.manager.mod = 1
 		# self.utano.apply_song_select()
-		self.manager.root.title('Utano: Guessing mode')
+		self.manager.root.title('Utano: Guess mode')
 		self.utano.next_song(len(self.utano.all_songs), False)
 		self._clear()
 		self.switch_to_me()
