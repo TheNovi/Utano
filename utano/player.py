@@ -23,7 +23,8 @@ class Player:
 		m.reset()
 		if status:
 			self._p.play()
-		# self._p.set_position(0.95)
+
+	# self._p.set_position(0.95)
 
 	def pause(self):
 		self._p.pause()

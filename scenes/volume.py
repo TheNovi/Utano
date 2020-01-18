@@ -35,7 +35,7 @@ class Volume(Scene):
 		b = self.winfo_rgb(self.theme['bg'])
 		f = self.winfo_rgb(self.theme['fg'])
 		p = 1 - round((datetime.now() - self.timer).total_seconds() / Volume.COUNTDOWN, 3)
-		self.l_volume.config(fg='#' + ''.join([format(int((b[i] + (f[i]-b[i]) * min(p + 0.1, 1)) / 256), 'x').zfill(2) for i in range(3)]))
+		self.l_volume.config(fg='#' + ''.join([format(int((b[i] + (f[i] - b[i]) * min(p + 0.1, 1)) / 256), 'x').zfill(2) for i in range(3)]))
 		if p <= 0:
 			self.manager.escape()
 

@@ -13,6 +13,7 @@ class Scene(Frame):
 		self._init_()
 
 	def _init_(self):
+		# Overwrite me
 		pass
 
 	def activate(self):
@@ -22,12 +23,14 @@ class Scene(Frame):
 		pass
 
 	def tick(self):
+		# Overwrite me
 		pass
 
 	def deactivate(self):
 		self.pack_forget()
 
 	def typed(self, event):
+		# Overwrite me
 		pass
 
 	def switch_to_me(self):

@@ -127,7 +127,7 @@ class Main(Scene):
 		self.drop.a = -1
 		s = self.utano.get_actual_song()
 		if s.lrc.active:
-			self.last_lrc_bar = self.f_lrc.winfo_width() / 2.3  # fixme Don't work on first song
+			self.last_lrc_bar = self.f_lrc.winfo_width() / 2.3  # todo Don't work on first song
 			self.f_lrc.pack(fill='both')
 			self.l_lrc['text'] = ''
 		else:

@@ -1,14 +1,14 @@
 {
-	"path": "home/music/",
-	"theme_path": "home/theme.json",
-	"stats_path": "home/stats.json",
-  	"lrc_path": "home/lrc/",
-	"volume": 50,
-  	"start_paused": false,
-	"auto_play": false,
-	"replay_when_progress": 5,
-  	"disable_stop_button": true,
-	"switch_controls": false,
-	"reverse_title": true,
-	"reverse_in_list": false
+  "path": "home/music/",
+  "theme_path": "home/theme.json",
+  "stats_path": "home/stats.json",
+  "lrc_path": "home/lrc/",
+  "volume": 50,
+  "start_paused": false,
+  "auto_play": false,
+  "replay_when_progress": 5,
+  "disable_stop_button": true,
+  "switch_controls": false,
+  "reverse_title": true,
+  "reverse_in_list": false
 }

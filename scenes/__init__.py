@@ -58,8 +58,9 @@ class ScenesManager:
 	def next_song_call(self):
 		if self.mod == 0:
 			self.s_main.next_song_call()
-		# elif self.mod == 1:
-		# 	self.gue_main.next_song_call()
+
+	# elif self.mod == 1:
+	# 	self.gue_main.next_song_call()
 
 	def achieve_call(self, achievement):
 		self.show_notification()

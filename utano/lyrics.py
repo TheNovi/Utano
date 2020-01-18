@@ -69,7 +69,7 @@ class Lyrics:
 			if not (isinstance(lrc, Drop)):
 				self._start = lrc.time
 				self.actual_text = lrc.text
-			return self.que[self._i-1]
+			return self.que[self._i - 1]
 
 	def get_p_bar(self, ut) -> Tuple[float, bool]:
 		def get_next_time():
@@ -77,10 +77,11 @@ class Lyrics:
 				if not (isinstance(lrc, Drop)):
 					return lrc.time
 			return ut.player.get_length()
+
 		time = ut.get_time()
 		end = get_next_time()
-		out = (time-self._start)/max(1, end-self._start)
-		return (out, True) if self.actual_text else (1-out, False)
+		out = (time - self._start) / max(1, end - self._start)
+		return (out, True) if self.actual_text else (1 - out, False)
 
 	def reset(self):
 		self._i = 0

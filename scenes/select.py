@@ -45,7 +45,7 @@ class Select(Scene):
 				if len(f) > width:
 					width = len(f)
 		self.l_info['text'] = f'{len(self.sub_select)}/{len(self.utano.all_songs)}'
-		self.l_catalog.config(width=int(width*0.8))
+		self.l_catalog.config(width=int(width * 0.8))
 		self.l_catalog.activate(i)
 		self.l_catalog.select_clear(0, 'end')
 		self.l_catalog.select_set(i)
