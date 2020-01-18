@@ -43,7 +43,7 @@ class Main(Scene):
 		self.manager.mod = 1
 		# self.utano.apply_song_select()
 		self.manager.root.title('Utano: Guess mode')
-		self.utano.next_song(len(self.utano.all_songs), False)
+		self.utano.next_song(len(self.utano.all_songs), False, False)
 		self._clear()
 		self.switch_to_me()
 
@@ -51,29 +51,14 @@ class Main(Scene):
 		super().activate()
 		self.e_search.focus_force()
 
-	def tick(self):
-		pass
-
 	def typed(self, event):
 		if event.keysym == 'Left':
 			self.manager.mod_changer.switch_to_me()
 
-	# def next_song_call(self):
-	# 	def add_spaces(h, offset=30):  # Adding some spaces around names
-	# 		h = "   " + h + "   "
-	# 		while len(h) < offset:
-	# 			h = " " + h + " "
-	# 		return h
-	#
-	# 	s = self.utano.get_actual_song()
-	# 	min_spaces = 50 if s.lrc.active else 30
-	# 	self.l_name['text'] = add_spaces(s.name, min_spaces)
-	# 	self.l_artist['text'] = add_spaces(s.artist, min_spaces)
-
 	def filter(self, reg=''):
 		self.l_catalog.delete(0, 'end')
 		self.sub_select = []
-		if len(reg) < 3:  # FIXME What if song has 2 letter name? Do i even care?
+		if len(reg) < 3:
 			return
 		width = 40
 		for s in sample(self.utano.songs, len(self.utano.songs)):
@@ -102,10 +87,10 @@ class Main(Scene):
 	def answer(self, song):  # TODO Some notif
 		if song == self.utano.get_actual_song():
 			print("Yes")
-			self.utano.next_song(stat=self.utano.stats.CheatSheet.songs_guessed_correctly)
+			self.utano.next_song(stat=self.utano.stats.events.songs_guessed_correctly)
 		else:
 			print('No')
-			self.utano.next_song(stat=self.utano.stats.CheatSheet.songs_guessed_incorrectly)
+			self.utano.next_song(stat=self.utano.stats.events.songs_guessed_incorrectly)
 		self._clear()
 
 	def _clear(self):

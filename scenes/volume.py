@@ -49,6 +49,6 @@ class Volume(Scene):
 		a = int(self.utano.player.get_volume() + event.delta / 120)
 		self.utano.player.set_volume(a)
 		if a > 100:
-			self.utano.stats.set(self.utano.stats.CheatSheet.h_volume_max, 1)
+			self.utano.stats.set(self.utano.stats.events.h_volume_max, 1)
 		self.master.after(2)
 		self.v_volume.set(self.utano.player.get_volume())

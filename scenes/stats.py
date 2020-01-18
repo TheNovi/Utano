@@ -21,11 +21,11 @@ class Stats(Scene):
 		self.f_lvl.destroy()
 		self.f_stats = tkinter.Frame(self)
 		self.f_lvl = tkinter.Frame(self)
-		for key, value in self.utano.stats.stats.items():
+		for key, value in self.utano.stats.values.items():
 			if key.startswith('h_') or key == 'lvl':
 				continue
 			f_tmp = tkinter.Frame(self.f_stats)
-			if key == self.utano.stats.CheatSheet.total_time:
+			if key == self.utano.stats.events.total_time:
 				value = str(timedelta(seconds=value + int(self.utano.get_time() / 1000))).split('.')[0]
 			bg = self.theme['bg'] if len(self.f_stats.winfo_children()) % 2 else '#333333'
 			tkinter.Label(f_tmp, text=key + ': ', bg=bg, fg=self.theme['fg'], anchor='w', font=(self.theme['font'], 10)).pack(fill='x', side='left')
@@ -36,7 +36,7 @@ class Stats(Scene):
 		super().activate()
 
 	def _level(self):
-		lvl = self.utano.stats.stats['lvl']
+		lvl = self.utano.stats.values['lvl']
 		tkinter.Label(self.f_lvl, text=f'\nLevel: {lvl.lvl}', bg=self.theme['bg'], fg=self.theme['fg'], anchor='w', font=(self.theme['font'], 10)).pack(fill='x')
 		tkinter.Label(self.f_lvl, text=f"{lvl.exp}/{lvl.total_exp_to_next_lvl()}", bg=self.theme['bg'], fg=self.theme['fg'], font=(self.theme['font'], 10)).pack(fill='x')
 		self.f_lvl.pack(fill='both')
@@ -44,7 +44,7 @@ class Stats(Scene):
 	def typed(self, event):
 		super().typed(event)
 		if event.keysym == 'Down':
-			self.manager.s_catalog.switch_to_me()  # FIXME Sometimes e_search don't get focused
+			self.manager.s_catalog.switch_to_me()
 		elif event.keysym == 'Up':
 			self.manager.s_volume.switch_to_me()
 		elif event.keysym == 'Right':

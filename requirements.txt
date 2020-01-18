@@ -1,3 +1,0 @@
--i https://pypi.org/simple
-keyboard==0.13.4
-python-vlc==3.0.7110

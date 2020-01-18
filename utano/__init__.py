@@ -1,7 +1,7 @@
-from typing import List, Callable
-from random import shuffle
-from glob import glob
 from datetime import datetime
+from glob import glob
+from random import shuffle
+from typing import List, Callable
 
 from . import song, player, stats
 
@@ -13,8 +13,8 @@ class Utano:
 		self.config = config
 		self.all_songs: List[song.Song] = []
 		self.songs: List[song.Song] = []
-		self.stats = stats.Stats(config['stats_path'])
-		self.player = player.Player(self.config, lambda: self.next_song(stat=stats.Stats.CheatSheet.song_played))
+		self.stats = stats.Stats(config)
+		self.player = player.Player(self.config, lambda: self.next_song(stat=self.stats.events.song_played))
 
 		self.actual_i = -1
 		self.status = not config['start_paused']  # Playing/Paused
@@ -23,7 +23,7 @@ class Utano:
 
 		self._load_all_songs_()
 		if len(self.songs) > 100:
-			self.stats.set(self.stats.CheatSheet.h_playlist_count, 1)
+			self.stats.set(self.stats.events.h_playlist_count, 1)
 		shuffle(self.songs)
 
 	def _load_all_songs_(self):
@@ -46,22 +46,23 @@ class Utano:
 	def get_actual_song(self):
 		return self.songs[self.actual_i]
 
-	def next_song(self, i=1, stat=stats.Stats.CheatSheet.song_skipped):
+	def next_song(self, i=1, stat=stats.Stats.events.song_skipped, playlist_completed=True):
 		if self.config['auto_play'] and self.actual_i >= 0:
 			self.status = True
 		if i == -1:
-			stat = self.stats.CheatSheet.song_replayed
+			stat = self.stats.events.song_replayed
 			if self.config['replay_when_progress'] > 0 and self.get_time() > self.config['replay_when_progress'] * 1000:
 				i = 0
 		self.actual_i += i
 		if self.actual_i >= len(self.songs):
 			self.actual_i = 0
 			shuffle(self.songs)
-			self.stats.add(self.stats.CheatSheet.playlist_completed)
+			if playlist_completed:
+				self.stats.add(self.stats.events.playlist_completed)
 		elif self.actual_i < 0:
 			self.actual_i = len(self.songs) - 1
 
-		self.stats.add(self.stats.CheatSheet.total_time, int(self.get_time() / 1000))
+		self.stats.add(self.stats.events.total_time, int(self.get_time() / 1000))
 		self._time_buffer = 0
 		self._time_now = datetime.now()
 		self.player.play(self.get_actual_song(), self.status)
@@ -70,7 +71,7 @@ class Utano:
 
 	def play_this(self, s: song):
 		self.actual_i = self.songs.index(s)
-		self.next_song(0, self.stats.CheatSheet.song_selected)
+		self.next_song(0, self.stats.events.song_selected)
 
 	def tick(self):
 		self.player.tick()
@@ -88,7 +89,7 @@ class Utano:
 	def pause(self):
 		if self.status:
 			self._time_buffer = self.get_time()
-			self.stats.add(self.stats.CheatSheet.paused)
+			self.stats.add(self.stats.events.paused)
 			self.player.pause()
 		else:
 			self._time_now = datetime.now()
@@ -96,6 +97,6 @@ class Utano:
 		self.status = not self.status
 
 	def end(self):
-		self.stats.add(self.stats.CheatSheet.total_time, int(self.get_time() / 1000))
+		self.stats.add(self.stats.events.total_time, int(self.get_time() / 1000))
 		self.stats.save()
 		self.player.end()

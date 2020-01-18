@@ -1,10 +1,11 @@
-import keyboard
-from sys import argv
-import tkinter
 import json
+import tkinter
+from sys import argv
 
-from utano import *
+import keyboard
+
 from scenes import ScenesManager
+from utano import *
 
 conf = {
 	"path": "home/music/",
@@ -69,19 +70,14 @@ if __name__ == '__main__':
 	s_manager = ScenesManager(root, ut, theme)
 	ut.set_callbacks(next_song_call=s_manager.next_song_call, lrc_call=s_manager.s_main.lrc_call, achieve_call=s_manager.achieve_call)
 	ut.next_song(stat=False)
-	ut.stats.add(ut.stats.CheatSheet.program_started)
+	ut.stats.add(ut.stats.events.program_started)
 
-	# Multimedia keys
 	# noinspection PyBroadException
 	try:
-		# keyboard.add_hotkey('play/pause media', lambda: but_ppe(None))
-		# keyboard.add_hotkey('next track', lambda: but_next_song_e(None))
-		# keyboard.add_hotkey('previous track', lambda: but_previous_song_e(None))
-		# keyboard.add_hotkey('stop media', lambda: end())
-		keyboard.add_hotkey(-179, lambda: ut.pause())
-		keyboard.add_hotkey(-176, lambda: ut.next_song())
-		keyboard.add_hotkey(-177, lambda: ut.next_song(-1))
-		keyboard.add_hotkey(-178, lambda: conf['disable_stop_button'] or root.quit())
+		keyboard.add_hotkey(-179, lambda: ut.pause())  # play/pause media
+		keyboard.add_hotkey(-176, lambda: ut.next_song())  # next track
+		keyboard.add_hotkey(-177, lambda: ut.next_song(-1))  # previous track
+		keyboard.add_hotkey(-178, lambda: conf['disable_stop_button'] or root.quit())  # stop media
 	except:
 		pass
 
