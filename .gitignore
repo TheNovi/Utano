@@ -1,4 +1,13 @@
 .idea/
+.vscode/
 __pycache__/
+venv/
 out/
 nudes/
+.chika
+server.bat
+main.exe
+ptest*
+*.iml
+*.dll
+

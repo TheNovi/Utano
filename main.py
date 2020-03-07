@@ -1,6 +1,7 @@
 import json
+import os
+import sys
 import tkinter
-from sys import argv
 
 import keyboard
 
@@ -50,20 +51,22 @@ def queue():
 	root.after(10, queue)
 
 
-DEBUG = [x for x in argv if x.lower() in ['-d', '--debug']]
+DEBUG = [x for x in sys.argv if x.lower() in ['-d', '--debug']]
 
 if __name__ == '__main__':
-	conf = load(f'{"nudes/" if DEBUG else "home/"}conf.json', conf)
-	if not conf['path'].endswith('/'):
-		conf['path'] += '/'
-	if not conf['lrc_path'].endswith('/'):
+	conf = load(os.path.join(sys.path[1], 'nudes' if DEBUG else 'home', 'conf.json'), conf)
+	conf['path'] = os.path.realpath(conf['path'])
+	conf['theme_path'] = os.path.realpath(os.path.join(sys.path[1], conf['theme_path']))
+	conf['stats_path'] = os.path.realpath(os.path.join(sys.path[1], conf['stats_path']))
+	conf['lrc_path'] = os.path.realpath(os.path.join(sys.path[1], conf['lrc_path']))
+	if not conf['lrc_path'].endswith('/'):  # TODO Delete
 		conf['lrc_path'] += '/'
 	theme = load(conf['theme_path'], theme)
 	ut = Utano(conf)
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
 	root.title('Utano Beta')
-	root.iconbitmap(default="icon.ico")
+	root.iconbitmap(default=os.path.join(sys.path[1], 'icon.ico'))
 	root.resizable(width=False, height=False)
 	root.bind("<Button-2>", lambda e: ut.pause())
 
