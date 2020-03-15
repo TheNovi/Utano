@@ -1,10 +1,12 @@
-from scenes import main, volume, select, catalog, stats, achieve, gue_main, mod_changer, notification
+from utano import Utano
+from . import catalog, gue_main, mod_changer
+from . import main, volume, select, stats, achieve, notification
 
 
 class ScenesManager:
-	def __init__(self, root, utano, theme):
+	def __init__(self, root, utano: Utano, theme):
 		self.root = root
-		self.utano = utano
+		self.utano: Utano = utano
 		self.theme = theme
 
 		self.notifications = []

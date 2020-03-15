@@ -1,8 +1,8 @@
 import tkinter
 from random import sample
 
-from scenes.scene import Scene
-from utano.lyrics import Lrc, Drop
+from .scene import Scene
+from ..core.lyrics import Lrc, Drop
 
 
 class _DropWrapper:  # TODO Void

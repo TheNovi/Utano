@@ -1,7 +1,7 @@
 import tkinter
 from datetime import timedelta
 
-from scenes.scene import Scene
+from .scene import Scene
 
 
 # noinspection PyAttributeOutsideInit

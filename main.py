@@ -5,8 +5,8 @@ import tkinter
 
 import keyboard
 
-from scenes import ScenesManager
-from utano import *
+import utano
+from utano.scenes import ScenesManager
 
 conf = {
 	"path": "home/music/",
@@ -62,7 +62,7 @@ if __name__ == '__main__':
 	if not conf['lrc_path'].endswith('/'):  # TODO Delete
 		conf['lrc_path'] += '/'
 	theme = load(conf['theme_path'], theme)
-	ut = Utano(conf)
+	ut = utano.Utano(conf)
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
 	root.title('Utano Beta')

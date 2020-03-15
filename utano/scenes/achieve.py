@@ -1,6 +1,6 @@
 import tkinter
 
-from scenes.scene import Scene
+from .scene import Scene
 
 
 # noinspection PyAttributeOutsideInit

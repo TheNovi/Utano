@@ -1,9 +1,9 @@
 import json
 from datetime import datetime
 
-from utano.stats import consts
-from utano.stats.achievement import Achievement
-from utano.stats.lvl import Lvl
+from . import consts
+from .achievement import Achievement
+from .lvl import Lvl
 
 
 class Stats:

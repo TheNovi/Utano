@@ -1,4 +1,4 @@
-from utano.lyrics import Lyrics
+from .lyrics import Lyrics
 
 
 class Song:

@@ -1,7 +1,7 @@
 import tkinter
 from random import sample
 
-from scenes.scene import Scene
+from .scene import Scene
 
 
 # noinspection PyAttributeOutsideInit

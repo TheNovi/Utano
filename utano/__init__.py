@@ -3,7 +3,7 @@ from glob import glob
 from random import shuffle
 from typing import List, Callable
 
-from . import song, player, stats
+from .core import song, player, stats
 
 
 class Utano:
