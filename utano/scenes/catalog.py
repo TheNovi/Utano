@@ -20,7 +20,7 @@ class Catalog(Scene):
 		self.l_catalog.bind("<BackSpace>", lambda _: self.e_search.focus_set())
 		self.e_search.bind("<Up>", lambda _: self.l_catalog.focus_set())
 		self.e_search.bind("<Down>", lambda _: self.l_catalog.focus_set())
-		self.e_search.bind("<Return>", lambda _: self.l_catalog.focus_set())
+		self.e_search.bind("<Return>", lambda _: self.selected())
 
 		self.e_search.pack(fill='both')
 		self.l_catalog.pack(fill='both')
