@@ -59,8 +59,6 @@ if __name__ == '__main__':
 	conf['theme_path'] = os.path.realpath(os.path.join(sys.path[1], conf['theme_path']))
 	conf['stats_path'] = os.path.realpath(os.path.join(sys.path[1], conf['stats_path']))
 	conf['lrc_path'] = os.path.realpath(os.path.join(sys.path[1], conf['lrc_path']))
-	if not conf['lrc_path'].endswith('/'):  # TODO Delete
-		conf['lrc_path'] += '/'
 	theme = load(conf['theme_path'], theme)
 	ut = utano.Utano(conf)
 	root = tkinter.Tk()
@@ -81,7 +79,7 @@ if __name__ == '__main__':
 		keyboard.add_hotkey(-176, lambda: ut.next_song())  # next track
 		keyboard.add_hotkey(-177, lambda: ut.next_song(-1))  # previous track
 		keyboard.add_hotkey(-178, lambda: conf['disable_stop_button'] or root.quit())  # stop media
-	except:
+	except:  # NOSONAR
 		pass
 
 	root.after(1, queue)

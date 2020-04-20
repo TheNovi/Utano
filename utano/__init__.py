@@ -28,6 +28,7 @@ class Utano:
 
 	def _load_all_songs_(self):
 		self.all_songs = [song.Song(path, self.config) for path in glob(f"{self.config['path']}/**/*.*")]  # TODO Ignore non audio files
+		self.all_songs += [song.Song(path, self.config) for path in glob(f"{self.config['path']}/*.*")]
 		self.songs = self.all_songs
 
 	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable, achieve_call: Callable):
