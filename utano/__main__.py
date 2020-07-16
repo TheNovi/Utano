@@ -1,12 +1,12 @@
 import json
 import os
 import sys
-import tkinter
 
 import keyboard
+from nui.gui.v1 import Stage, Style
 
 from core import Utano
-from scenes import ScenesManager
+from scenes.home import Home
 
 conf = {
 	"path": "home/music/",
@@ -47,29 +47,31 @@ def load(path: str, default: dict) -> dict:
 
 def queue():
 	ut.tick()
-	s_manager.tick()
-	root.after(10, queue)
+	s.after(10, queue)
 
 
 DEBUG = [x for x in sys.argv if x.lower() in ['-d', '--debug']]
 
 if __name__ == '__main__':
-	conf = load(os.path.join(sys.path[1], 'nudes' if DEBUG else 'home', 'conf.json'), conf)  # FIXME Paths
+	s: Stage = Stage(Style(bg='black', fg='red'), __file__)
+	conf = load(s.path(os.path.join('nudes' if DEBUG else 'home', 'conf.json')), conf)
 	conf['path'] = os.path.realpath(conf['path'])
-	conf['theme_path'] = os.path.realpath(os.path.join(sys.path[1], conf['theme_path']))
-	conf['stats_path'] = os.path.realpath(os.path.join(sys.path[1], conf['stats_path']))
-	conf['lrc_path'] = os.path.realpath(os.path.join(sys.path[1], conf['lrc_path']))
+	conf['theme_path'] = os.path.realpath(s.path(conf['theme_path']))
+	conf['stats_path'] = os.path.realpath(s.path(conf['stats_path']))
+	conf['lrc_path'] = os.path.realpath(s.path(conf['lrc_path']))
 	theme = load(conf['theme_path'], theme)
+	s.style = Style(bg=theme['bg'], fg=theme['fg'])
 	ut = Utano(conf)
-	root = tkinter.Tk()
-	root.config(bg=theme["bg"])
-	root.title('Utano Beta')
-	root.iconbitmap(default=os.path.join(sys.path[1], 'icon.ico'))
-	root.resizable(width=False, height=False)
-	root.bind("<Button-2>", lambda e: ut.pause())
+	s.master.title('Utano')
+	s.master.iconbitmap(default=s.path('icon.ico'))
+	s.master.resizable(width=False, height=False)
+	s.master.wm_minsize(width=200, height=0)
+	s.master.bind("<Button-2>", lambda e: ut.pause())
+	s.add('', Home, ut)
 
-	s_manager = ScenesManager(root, ut, theme)
-	ut.set_callbacks(next_song_call=s_manager.next_song_call, lrc_call=s_manager.s_main.lrc_call, achieve_call=s_manager.achieve_call)
+	# noinspection PyTypeChecker
+	h: Home = s['']
+	ut.set_callbacks(next_song_call=h.next_song_call, lrc_call=h.lrc_call, achieve_call=h.achieve_call)
 	ut.next_song(stat=False)
 	ut.stats.add(ut.stats.events.program_started)
 
@@ -78,10 +80,10 @@ if __name__ == '__main__':
 		keyboard.add_hotkey(-179, lambda: ut.pause())  # play/pause media
 		keyboard.add_hotkey(-176, lambda: ut.next_song())  # next track
 		keyboard.add_hotkey(-177, lambda: ut.next_song(-1))  # previous track
-		keyboard.add_hotkey(-178, lambda: conf['disable_stop_button'] or root.quit())  # stop media
+		keyboard.add_hotkey(-178, lambda: conf['disable_stop_button'] or s.quit())  # stop media
 	except:  # NOSONAR
 		pass
 
-	root.after(1, queue)
-	root.mainloop()
+	s.after(1, queue)
+	s.run('')
 	ut.end()
