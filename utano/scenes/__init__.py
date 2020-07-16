@@ -1,4 +1,4 @@
-from utano import Utano
+from core import Utano
 from . import catalog, gue_main, mod_changer
 from . import main, volume, select, stats, achieve, notification
 

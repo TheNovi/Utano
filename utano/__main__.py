@@ -5,8 +5,8 @@ import tkinter
 
 import keyboard
 
-import utano
-from utano.scenes import ScenesManager
+from core import Utano
+from scenes import ScenesManager
 
 conf = {
 	"path": "home/music/",
@@ -54,13 +54,13 @@ def queue():
 DEBUG = [x for x in sys.argv if x.lower() in ['-d', '--debug']]
 
 if __name__ == '__main__':
-	conf = load(os.path.join(sys.path[1], 'nudes' if DEBUG else 'home', 'conf.json'), conf)
+	conf = load(os.path.join(sys.path[1], 'nudes' if DEBUG else 'home', 'conf.json'), conf)  # FIXME Paths
 	conf['path'] = os.path.realpath(conf['path'])
 	conf['theme_path'] = os.path.realpath(os.path.join(sys.path[1], conf['theme_path']))
 	conf['stats_path'] = os.path.realpath(os.path.join(sys.path[1], conf['stats_path']))
 	conf['lrc_path'] = os.path.realpath(os.path.join(sys.path[1], conf['lrc_path']))
 	theme = load(conf['theme_path'], theme)
-	ut = utano.Utano(conf)
+	ut = Utano(conf)
 	root = tkinter.Tk()
 	root.config(bg=theme["bg"])
 	root.title('Utano Beta')

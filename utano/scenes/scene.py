@@ -1,7 +1,7 @@
 from tkinter import Frame
 
-from utano import Utano
-from utano import scenes
+import scenes
+from core import Utano
 
 
 class Scene(Frame):

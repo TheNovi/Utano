@@ -6,6 +6,7 @@ verify_ssl = true
 [packages]
 python-vlc = "*"
 keyboard = "*"
+nui = {git = "https://github.com/TheNovi/Nui.git"}
 
 [requires]
 python_version = "3.8"
