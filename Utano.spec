@@ -3,8 +3,11 @@
 block_cipher = None
 
 
-a = Analysis(['main.py'],
-             pathex=['C:\\Users\\kubas\\.virtualenvs\\Utano-BopveX6v\\Lib\\site-packages'],
+a = Analysis(['utano\\__main__.py'],
+             pathex=[
+                'D:\\Dropbox\\Projects\\Python\\Utano\\utano',
+                'C:\\Users\\kubas\\.virtualenvs\\Utano-BopveX6v\\Lib\\site-packages'
+             ],
              binaries=[],
               datas=[
                 ('icon.ico', '.'),
