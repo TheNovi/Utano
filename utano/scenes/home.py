@@ -26,7 +26,7 @@ class Home(Scene):
 		for b in [
 			(f'<Button-{tmp[0]}>', lambda e: self.ut.next_song()),
 			(f'<Button-{tmp[1]}>', lambda e: self.ut.next_song(-1)),
-			# ('<MouseWheel>', lambda event: self.manager.s_volume.switch_to_me() or self.manager.s_volume.vol_change_e(event))
+			('<MouseWheel>', lambda event: self.stage.switch('v'))
 		]:
 			self.l_name.bind(*b)
 			self.l_artist.bind(*b)
