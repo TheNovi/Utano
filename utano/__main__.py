@@ -53,14 +53,14 @@ def queue():
 DEBUG = [x for x in sys.argv if x.lower() in ['-d', '--debug']]
 
 if __name__ == '__main__':
-	s: Stage = Stage(Style(bg='black', fg='red'), __file__)
+	s: Stage = Stage(Style.from_dict(theme), __file__)
 	conf = load(s.path(os.path.join('nudes' if DEBUG else 'home', 'conf.json')), conf)
 	conf['path'] = os.path.realpath(conf['path'])
 	conf['theme_path'] = os.path.realpath(s.path(conf['theme_path']))
 	conf['stats_path'] = os.path.realpath(s.path(conf['stats_path']))
 	conf['lrc_path'] = os.path.realpath(s.path(conf['lrc_path']))
 	theme = load(conf['theme_path'], theme)
-	s.style = Style(bg=theme['bg'], fg=theme['fg'])
+	s.style = Style.from_dict(theme)
 	ut = Utano(conf)
 	s.master.title('Utano')
 	s.master.iconbitmap(default=s.path('icon.ico'))

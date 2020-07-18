@@ -11,13 +11,13 @@ class Home(Scene):
 	def __init__(self, stage: Stage, ut: Utano):
 		super().__init__(stage)
 		self.ut: Utano = ut
-		self.l_name = Label(self).inline_pack()
-		self.l_artist = Label(self).inline_pack()
-		self.song_line = Label(self).inline_pack()
+		self.l_name = Label(self, style=self.style.child(font=(self.style.font, 25))).inline_pack()
+		self.l_artist = Label(self, style=self.style.child(font=(self.style.font, 15))).inline_pack()
+		self.song_line = Label(self, style=self.style.child(font=('helvetica', 5))).inline_pack()
 
 		self.f_lrc = Frame(self)
-		self.l_lrc = Label(self.f_lrc).inline_pack()
-		self.lrc_line = Label(self.f_lrc).inline_pack()
+		self.l_lrc = Label(self.f_lrc, style=self.style.child(font=('Comic Sans MS', 20, 'italic'))).inline_pack()
+		self.lrc_line = Label(self.f_lrc, style=self.style.child(font=('helvetica', 5))).inline_pack()
 		self.drop: _DropWrapper = _DropWrapper(self)
 
 		self.last_lrc_bar = 0

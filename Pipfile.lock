@@ -26,7 +26,7 @@
         },
         "nui": {
             "git": "https://github.com/TheNovi/Nui.git",
-            "ref": "6c44c6436e8b98baea383a4f7cb4709519cc290d"
+            "ref": "57fb2ab0497eb6033f660cac969b46c6c0773e0e"
         },
         "python-vlc": {
             "hashes": [
