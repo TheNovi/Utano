@@ -53,12 +53,11 @@ class Home(Scene):
 			self.lrc_line['text'] = '-' * int(p[0] * min(self.last_lrc_bar, self.f_lrc.winfo_width() / 2.3))
 
 	def typed(self, event) -> None:
-		pass
+		# if event.keysym == 'Up':
+		# 	self.stage.switch('select')
+		if event.keysym == 'Down':
+			self.stage.switch('c')
 
-	# if event.keysym == 'Up':
-	# 	self.stage.switch('select')
-	# elif event.keysym == 'Down':
-	# 	self.stage.switch('catalog')
 	# elif event.keysym == 'Right':
 	# 	self.stage.switch('stats')
 	# elif event.keysym == 'Left':
