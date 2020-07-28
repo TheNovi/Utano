@@ -57,6 +57,10 @@ class Home(Scene):
 		# 	self.stage.switch('select')
 		if event.keysym == 'Down':
 			self.stage.switch('c')
+		elif len(event.keysym) == 1:
+			self.stage.switch('c')
+			# noinspection PyUnresolvedReferences
+			self.stage['c'].e_search.insert(0, event.char)
 
 	# elif event.keysym == 'Right':
 	# 	self.stage.switch('stats')
