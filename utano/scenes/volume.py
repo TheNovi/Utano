@@ -48,6 +48,6 @@ class Volume(Scene):
 		a = int(self.ut.player.get_volume() + event.delta / 120)
 		self.ut.player.set_volume(a)
 		if a > 100:
-			self.ut.stats.set(self.ut.stats.events.h_volume_max, 1)
+			self.ut.stats.h_volume_max.set(1)
 		self.master.after(2)
 		self.l_volume.set_(self.ut.player.get_volume())

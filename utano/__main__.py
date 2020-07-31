@@ -75,9 +75,9 @@ if __name__ == '__main__':
 
 	# noinspection PyTypeChecker
 	h: Home = s['']
-	ut.set_callbacks(next_song_call=h.next_song_call, lrc_call=h.lrc_call, achieve_call=h.achieve_call)
-	ut.next_song(stat=False)
-	ut.stats.add(ut.stats.events.program_started)
+	ut.set_callbacks(next_song_call=h.next_song_call, lrc_call=h.lrc_call, achieve_call=h.achieve_call)  # TODO Move these lines to some ut.init() method
+	ut.next_song(init=True)
+	ut.stats.program_started.add()
 
 	# noinspection PyBroadException
 	try:

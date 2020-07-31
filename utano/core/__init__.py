@@ -14,7 +14,7 @@ class Utano:
 		self.all_songs: List[song.Song] = []
 		self.songs: List[song.Song] = []
 		self.stats = stats.Stats(config)
-		self.player = player.Player(self.config, lambda: self.next_song(stat=self.stats.events.song_played))
+		self.player = player.Player(self.config, lambda: self.next_song(stat=self.stats.song_played))
 
 		self.actual_i = -1
 		self.status = not config['start_paused']  # Playing/Paused
@@ -23,7 +23,7 @@ class Utano:
 
 		self._load_all_songs_()
 		if len(self.songs) > 100:
-			self.stats.set(self.stats.events.h_playlist_count, 1)
+			self.stats.h_playlist_count.set(1)
 		shuffle(self.songs)
 
 	def _load_all_songs_(self):
@@ -33,8 +33,8 @@ class Utano:
 
 	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable, achieve_call: Callable):
 		self.next_song_call = next_song_call
+		# self.stats.set_callback(achieve_call) # TODO
 		self.lrc_call = lrc_call
-		self.stats.set_callback(achieve_call)
 
 	def apply_song_select(self, songs: List[song.Song] = None):
 		if songs:
@@ -42,37 +42,41 @@ class Utano:
 		else:
 			self.songs = self.all_songs
 		self.actual_i = 0
-		self.next_song(0, None)
+		self.next_song(0)
 
 	def get_actual_song(self):
 		return self.songs[self.actual_i]
 
-	def next_song(self, i=1, stat=stats.Stats.events.song_skipped, playlist_completed=True):
+	def next_song(self, i=1, stat=None, playlist_completed=True, init=False):
+		if stat is None:
+			stat = self.stats.song_skipped
+
 		if self.config['auto_play'] and self.actual_i >= 0:
 			self.status = True
 		if i == -1:
-			stat = self.stats.events.song_replayed
+			stat = self.stats.song_replayed
 			if self.config['replay_when_progress'] > 0 and self.get_time() > self.config['replay_when_progress'] * 1000:
 				i = 0
 		self.actual_i += i
 		if self.actual_i >= len(self.songs):
 			self.actual_i = 0
 			shuffle(self.songs)
-			if playlist_completed:
-				self.stats.add(self.stats.events.playlist_completed)
+			if playlist_completed:  # TODO Check me: not sure what playlist_completed is
+				self.stats.playlist_completed.add()
 		elif self.actual_i < 0:
 			self.actual_i = len(self.songs) - 1
 
-		self.stats.add(self.stats.events.total_time, int(self.get_time() / 1000))
+		self.stats.total_time.add(int(self.get_time() / 1000))
 		self._time_buffer = 0
 		self._time_now = datetime.now()
 		self.player.play(self.get_actual_song(), self.status)
-		self.stats.add(stat)
+		if not init:
+			stat.add()
 		self.next_song_call()
 
 	def play_this(self, s: song):
 		self.actual_i = self.songs.index(s)
-		self.next_song(0, self.stats.events.song_selected)
+		self.next_song(0, self.stats.song_selected)
 
 	def tick(self):
 		self.player.tick()
@@ -90,7 +94,7 @@ class Utano:
 	def pause(self):
 		if self.status:
 			self._time_buffer = self.get_time()
-			self.stats.add(self.stats.events.paused)
+			self.stats.paused.add()
 			self.player.pause()
 		else:
 			self._time_now = datetime.now()
@@ -98,6 +102,6 @@ class Utano:
 		self.status = not self.status
 
 	def end(self):
-		self.stats.add(self.stats.events.total_time, int(self.get_time() / 1000))
+		self.stats.total_time.add(int(self.get_time() / 1000))
 		self.stats.save()
 		self.player.end()

@@ -1,14 +1,23 @@
-class Achievement:
-	def __init__(self, name: str, desc: str, event, count: int, xp: int):
-		self.name: str = name
-		self.desc: str = desc.replace("{}", str(count))
-		self.event = event
-		self.count: int = count
-		self.xp: int = xp
-		self.got_it = False
+from typing import List
 
-	def check(self, stat, popup=None):
-		if (not self.got_it) and self.event.name in stat and stat[self.event.name] >= self.count:
-			self.got_it = True
-			if popup:
-				popup(self)
+
+# TODO Add tiers in one achievements
+# TODO Untested
+class Achievement:
+	def __init__(self, stats, name, desc, events: List, xp):
+		from .stats import Stats
+		self.stats: Stats = stats
+		self.name: str = name
+		self.desc: str = desc
+		self.xp: int = xp
+		self.got: bool = False
+		for stat in events:
+			stat.events.append(self)
+
+	def check(self) -> None:
+		if self.stats.song_played.value > 10:
+			self.got = True
+			print("Got achieve" + repr(self))
+
+	def __repr__(self):
+		return f'<Achievement: {self.name=}, {self.got=}>'

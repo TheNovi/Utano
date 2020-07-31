@@ -9,9 +9,8 @@ class Lvl:
 	def exp(self):
 		return self._exp
 
-	@exp.setter
-	def exp(self, value):
-		self._exp = max(0, value)
+	def add_exp(self, value):
+		self._exp += max(0, value)
 		self._check()
 
 	@property
