@@ -31,10 +31,10 @@ class Lyrics:
 		self.lrc = True
 		self.drops = True
 		self.void = False
-		if not path.exists(f"{conf['lrc_path']}{song.get_full_name()}.lc"):
+		if not path.exists(f"{conf.lrc_path}{song.get_full_name()}.lc"):
 			self.active = False
 			return
-		with open(f"{conf['lrc_path']}{song.get_full_name()}.lc", encoding='utf-8') as lc:
+		with open(f"{conf.lrc_path}{song.get_full_name()}.lc", encoding='utf-8') as lc:
 			text = lc.readlines()
 		for t in text:
 			t = t.replace('\n', "").strip(" ")

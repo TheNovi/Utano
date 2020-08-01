@@ -13,7 +13,7 @@ class Catalog(Scene):
 		self.v_search = tkinter.StringVar()
 		self.v_search.trace_add("write", lambda *args: self.filter(self.e_search.get()))  # TODO Escape if empty
 		self.e_search = Entry(self, style=self.style.child(font=(self.style.font, 10)), textvariable=self.v_search)
-		self.l_catalog = Listbox(self, parse_method=lambda s: s.get_full_name(self.ut.config['reverse_in_list']), style=self.style.child(font=(self.style.font, 10))) \
+		self.l_catalog = Listbox(self, parse_method=lambda s: s.get_full_name(self.ut.config.reverse_in_list), style=self.style.child(font=(self.style.font, 10))) \
 			.inline_bind("i", lambda _: self.e_search.focus_set()) \
 			.inline_bind("<BackSpace>", lambda _: self.e_search.focus_set()) \
 			.inline_select_bind(self.selected)
@@ -35,7 +35,7 @@ class Catalog(Scene):
 		# self.l_catalog.delete(0, 'end')
 		values = []
 		for s in self.ut.songs:
-			f = s.get_full_name(self.ut.config['reverse_in_list'])
+			f = s.get_full_name(self.ut.config.reverse_in_list)
 			if tkinter.re.match(r'.*{}.*'.format(tkinter.re.escape(reg)), f, tkinter.re.IGNORECASE):
 				values.append(s)  # TODO Somehow remove this temp list
 		self.l_catalog.set_(values)

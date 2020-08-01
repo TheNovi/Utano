@@ -6,6 +6,7 @@ import keyboard
 from nui.gui.v1 import Stage, Style
 
 from core import Utano
+from core.conf import Conf
 from scenes.catalog import Catalog
 from scenes.home import Home
 from scenes.stats import Stats
@@ -57,13 +58,8 @@ DEBUG = [x for x in sys.argv if x.lower() in ['-d', '--debug']]
 
 if __name__ == '__main__':
 	s: Stage = Stage(Style.from_dict(theme), __file__)
-	conf = load(s.path(os.path.join('nudes' if DEBUG else 'home', 'conf.json')), conf)
-	conf['path'] = os.path.realpath(conf['path'])
-	conf['theme_path'] = os.path.realpath(s.path(conf['theme_path']))
-	conf['stats_path'] = os.path.realpath(s.path(conf['stats_path']))
-	conf['lrc_path'] = os.path.realpath(s.path(conf['lrc_path']))
-	theme = load(conf['theme_path'], theme)
-	s.style = Style.from_dict(theme)
+	conf = Conf(s.path()).load(os.path.join('nudes' if DEBUG else 'home', 'conf.json'))
+	s.style = Style.from_dict(load(conf.theme_path, theme))
 	ut = Utano(conf)
 	s.master.title('Utano')
 	s.master.iconbitmap(default=s.path('icon.ico'))

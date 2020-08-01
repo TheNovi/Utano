@@ -4,20 +4,21 @@ from random import shuffle
 from typing import List, Callable
 
 from . import song, player, stats
+from .conf import Conf
 
 
 class Utano:
-	def __init__(self, config):
+	def __init__(self, config: Conf):
 		self.next_song_call = print
 		self.lrc_call = print
 		self.config = config
 		self.all_songs: List[song.Song] = []
 		self.songs: List[song.Song] = []
-		self.stats = stats.Stats(config)
+		self.stats = stats.Stats(self.config)
 		self.player = player.Player(self.config, lambda: self.next_song(stat=self.stats.song_played))
 
 		self.actual_i = -1
-		self.status = not config['start_paused']  # Playing/Paused
+		self.status = not config.start_paused  # Playing/Paused
 		self._time_buffer = 0
 		self._time_now = None
 
@@ -27,8 +28,8 @@ class Utano:
 		shuffle(self.songs)
 
 	def _load_all_songs_(self):
-		self.all_songs = [song.Song(path, self.config) for path in glob(f"{self.config['path']}/**/*.*")]  # TODO Ignore non audio files
-		self.all_songs += [song.Song(path, self.config) for path in glob(f"{self.config['path']}/*.*")]
+		self.all_songs = [song.Song(path, self.config) for path in glob(f"{self.config.music_path}/**/*.*")]  # TODO Ignore non audio files
+		self.all_songs += [song.Song(path, self.config) for path in glob(f"{self.config.music_path}/*.*")]
 		self.songs = self.all_songs
 
 	def set_callbacks(self, next_song_call: Callable, lrc_call: Callable, achieve_call: Callable):
@@ -51,11 +52,11 @@ class Utano:
 		if stat is None:
 			stat = self.stats.song_skipped
 
-		if self.config['auto_play'] and self.actual_i >= 0:
+		if self.config.auto_play and self.actual_i >= 0:
 			self.status = True
 		if i == -1:
 			stat = self.stats.song_replayed
-			if self.config['replay_when_progress'] > 0 and self.get_time() > self.config['replay_when_progress'] * 1000:
+			if self.config.replay_when_progress > 0 and self.get_time() > self.config.replay_when_progress * 1000:
 				i = 0
 		self.actual_i += i
 		if self.actual_i >= len(self.songs):
@@ -104,4 +105,5 @@ class Utano:
 	def end(self):
 		self.stats.total_time.add(int(self.get_time() / 1000))
 		self.stats.save()
+		self.config.save()
 		self.player.end()

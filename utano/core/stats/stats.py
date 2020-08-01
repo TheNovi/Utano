@@ -31,7 +31,7 @@ class Stats:
 			self.__value = value
 			self.__trigger_events()
 
-	def __init__(self, config: dict):
+	def __init__(self, conf):
 		self.stats_created: Stats.Stat = Stats.Stat()
 		self.program_started: Stats.Stat = Stats.Stat()
 		self.song_played: Stats.Stat = Stats.Stat(3)
@@ -77,16 +77,16 @@ class Stats:
 			Achievement.basic(self, "Long playlist", "Have over 100 songs in playlist", self.h_playlist_count, 1, 0, hidden=True)
 		]
 
-		self.config: dict = config
+		self.conf = conf
 		self.load()
 
 		if self.stats_created.value == 0:
 			self.stats_created.set(datetime.now().strftime("%Y-%m-%d %H:%M"))
 
 	def load(self):
-		if path_exists(self.config['stats_path']):
+		if path_exists(self.conf.stats_path):
 			try:
-				with open(self.config['stats_path']) as f:
+				with open(self.conf.stats_path) as f:
 					d: dict = json.load(f)
 			except JSONDecodeError:
 				print("Can't load stats")
@@ -100,9 +100,11 @@ class Stats:
 			self.song_selected.set(d.get('song_selected', 0))
 			self.playlist_completed.set(d.get('playlist_completed', 0))
 			self.total_time.set(d.get('total_time', 0))
+			self.h_volume_max.set(d.get('h_volume_max', 0))
+			self.h_playlist_count.set(d.get('h_playlist_count', 0))
 
 	def save(self):
-		with open(self.config['stats_path'], 'w') as f:
+		with open(self.conf.stats_path, 'w') as f:
 			json.dump({
 				'stats_created': self.stats_created.value,
 				'program_started': self.program_started.value,

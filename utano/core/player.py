@@ -16,7 +16,7 @@ class Player:
 			self.sec()
 
 	def apply_conf(self, conf):
-		self._p.audio_set_volume(conf["volume"])
+		self._p.audio_set_volume(conf.volume)
 
 	def play(self, m: Song, status):
 		self._p.set_mrl(m.path)

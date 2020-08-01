@@ -22,7 +22,7 @@ class Home(Scene):
 
 		self.last_lrc_bar = 0
 
-		tmp = (3, 1) if self.ut.config['switch_controls'] else (1, 3)
+		tmp = (3, 1) if self.ut.config.switch_controls else (1, 3)
 		for b in [
 			(f'<Button-{tmp[0]}>', lambda e: self.ut.next_song()),
 			(f'<Button-{tmp[1]}>', lambda e: self.ut.next_song(-1)),
@@ -85,7 +85,7 @@ class Home(Scene):
 		min_spaces = 50 if s.lrc.active else 30
 		self.l_name['text'] = add_spaces(s.name, min_spaces)
 		self.l_artist['text'] = add_spaces(s.artist, min_spaces)
-		self.stage.master.title(s.get_full_name(self.ut.config['reverse_title']))
+		self.stage.master.title(s.get_full_name(self.ut.config.reverse_title))
 
 	def lrc_call(self, lrc):
 		if isinstance(lrc, Lrc):

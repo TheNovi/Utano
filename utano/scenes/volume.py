@@ -18,7 +18,7 @@ class Volume(Scene):
 			.inline_bind('<MouseWheel>', self.vol_change_e) \
 			.inline_pack()
 
-		tmp = (3, 1) if self.ut.config['switch_controls'] else (1, 3)
+		tmp = (3, 1) if self.ut.config.switch_controls else (1, 3)
 		for b in [
 			(f'<Button-{tmp[0]}>', lambda e: self.ut.next_song() or self.stage.switch('')),
 			(f'<Button-{tmp[1]}>', lambda e: self.ut.next_song(-1) or self.stage.switch(''))
