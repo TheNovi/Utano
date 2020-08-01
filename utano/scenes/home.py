@@ -53,17 +53,17 @@ class Home(Scene):
 			self.lrc_line['text'] = '-' * int(p[0] * min(self.last_lrc_bar, self.f_lrc.winfo_width() / 2.3))
 
 	def typed(self, event) -> None:
-		# if event.keysym == 'Up':
-		# 	self.stage.switch('select')
-		if event.keysym == 'Down':
+		if event.keysym == 'Up':
+			# self.stage.switch('s')
+			pass
+		elif event.keysym == 'Down':
 			self.stage.switch('c')
 		elif len(event.keysym) == 1:
 			self.stage.switch('c')
 			# noinspection PyUnresolvedReferences
 			self.stage['c'].e_search.insert(0, event.char)
-
-	# elif event.keysym == 'Right':
-	# 	self.stage.switch('stats')
+		elif event.keysym == 'Right':
+			self.stage.switch('s')
 	# elif event.keysym == 'Left':
 	# 	self.stage.switch('mod_changer')
 

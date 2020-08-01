@@ -8,6 +8,7 @@ from nui.gui.v1 import Stage, Style
 from core import Utano
 from scenes.catalog import Catalog
 from scenes.home import Home
+from scenes.stats import Stats
 from scenes.volume import Volume
 
 conf = {
@@ -69,9 +70,12 @@ if __name__ == '__main__':
 	s.master.resizable(width=False, height=False)
 	s.master.wm_minsize(width=200, height=0)
 	s.master.bind("<Button-2>", lambda e: ut.pause())
-	s.add('', Home, ut)
-	s.add('v', Volume, ut)
-	s.add('c', Catalog, ut)
+	s \
+		.add('', Home, ut) \
+		.add('v', Volume, ut) \
+		.add('c', Catalog, ut) \
+		.add('c', Catalog, ut) \
+		.add('s', Stats, ut)
 
 	# noinspection PyTypeChecker
 	h: Home = s['']
