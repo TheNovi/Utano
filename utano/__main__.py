@@ -7,6 +7,7 @@ from nui.gui.v1 import Stage, Style
 
 from core import Utano
 from core.conf import Conf
+from scenes.achievements import Achievements
 from scenes.catalog import Catalog
 from scenes.home import Home
 from scenes.settings import Settings
@@ -54,8 +55,8 @@ if __name__ == '__main__':
 		.add('', Home, ut) \
 		.add('v', Volume, ut) \
 		.add('c', Catalog, ut) \
-		.add('c', Catalog, ut) \
 		.add('s', Stats, ut) \
+		.add('a', Achievements, ut) \
 		.add('settings', Settings, ut)
 
 	# noinspection PyTypeChecker

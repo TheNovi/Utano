@@ -45,5 +45,4 @@ class Stats(Scene):
 		elif event.keysym == 'Down':
 			self.stage.switch('c')
 		elif event.keysym == 'Right':
-			# self.stage.switch('a')
-			pass
+			self.stage.switch('a')
