@@ -9,6 +9,7 @@ from core import Utano
 from core.conf import Conf
 from scenes.catalog import Catalog
 from scenes.home import Home
+from scenes.settings import Settings
 from scenes.stats import Stats
 from scenes.volume import Volume
 
@@ -71,7 +72,8 @@ if __name__ == '__main__':
 		.add('v', Volume, ut) \
 		.add('c', Catalog, ut) \
 		.add('c', Catalog, ut) \
-		.add('s', Stats, ut)
+		.add('s', Stats, ut) \
+		.add('settings', Settings, ut)
 
 	# noinspection PyTypeChecker
 	h: Home = s['']

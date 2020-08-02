@@ -54,8 +54,7 @@ class Home(Scene):
 
 	def typed(self, event) -> None:
 		if event.keysym == 'Up':
-			# self.stage.switch('s')
-			pass
+			self.stage.switch('settings')
 		elif event.keysym == 'Down':
 			self.stage.switch('c')
 		elif len(event.keysym) == 1:

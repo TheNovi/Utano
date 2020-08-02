@@ -11,9 +11,9 @@ class Conf:
 		self.raw_lrc_path = 'home/lrc'
 		self.music_path = 'home/music'
 		self.volume = 50
+		self.replay_when_progress = 0
 		self.start_paused = False
 		self.auto_play = False
-		self.replay_when_progress = 0
 		self.disable_stop_button = True
 		self.switch_controls = False
 		self.reverse_title = True
