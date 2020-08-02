@@ -9,6 +9,7 @@ from core.stats import Achievement
 
 # TODO Lvl
 # TODO Test all stats
+# TODO Dynamic stat (lambda as value (no add/set))
 class Stats:
 	class Stat:
 		def __init__(self, xp: int = 0):
@@ -48,33 +49,33 @@ class Stats:
 
 		__song_songs = "Skip {} songs."
 		self.achievements: List[Achievement] = [
-			Achievement.basic(self, "Wait, what? Achievements?!", "Start program.", self.program_started, group=1),
-			Achievement.basic(self, "Getting hooked?", "Start program {} times.", self.program_started, count=25, xp=5, group=1),
-			Achievement.basic(self, "Did you consider to support the developer?", "Start program {} times.", self.program_started, count=50, xp=10, group=1),
+			Achievement("Wait, what? Achievements?!", "Start program.", self.program_started, group=1),
+			Achievement("Getting hooked?", "Start program {} times.", self.program_started, count=25, xp=5, group=1),
+			Achievement("Did you consider to support the developer?", "Start program {} times.", self.program_started, count=50, xp=10, group=1),
 
-			Achievement.basic(self, "Hm, not this one.", __song_songs, self.song_skipped, count=10, xp=5, group=2),
-			Achievement.basic(self, "You should modify your playlist.", __song_songs, self.song_skipped, count=25, xp=10, group=2),
-			Achievement.basic(self, "Where is my song!?!", __song_songs, self.song_skipped, count=100, xp=15, group=2),
-			Achievement.basic(self, "Do you know this program have search bar, right?", __song_songs, self.song_skipped, count=500, xp=20, group=2),
+			Achievement("Hm, not this one.", __song_songs, self.song_skipped, count=10, xp=5, group=2),
+			Achievement("You should modify your playlist.", __song_songs, self.song_skipped, count=25, xp=10, group=2),
+			Achievement("Where is my song!?!", __song_songs, self.song_skipped, count=100, xp=15, group=2),
+			Achievement("Do you know this program have search bar, right?", __song_songs, self.song_skipped, count=500, xp=20, group=2),
 
-			Achievement.basic(self, "Hm, this one.", "Select {} songs from search menu", self.song_selected, count=5, xp=5, group=3),
-			Achievement.basic(self, "Master of choice.", "Select {} songs from search menu", self.song_selected, count=25, xp=10, group=3),
+			Achievement("Hm, this one.", "Select {} songs from search menu", self.song_selected, count=5, xp=5, group=3),
+			Achievement("Master of choice.", "Select {} songs from search menu", self.song_selected, count=25, xp=10, group=3),
 
-			Achievement.basic(self, "Wait!", "Pause song {} times", self.paused, count=5, xp=5, group=4),
-			Achievement.basic(self, "Toilet break.", "Pause song {} times", self.paused, count=25, xp=10, group=4),
+			Achievement("Wait!", "Pause song {} times", self.paused, count=5, xp=5, group=4),
+			Achievement("Toilet break.", "Pause song {} times", self.paused, count=25, xp=10, group=4),
 
-			Achievement.basic(self, "One average song.", "Listen at least 3 minutes", self.total_time, count=3 * 60, xp=5, group=5),
-			Achievement.basic(self, "One hour.", "Listen at least 1 hour", self.total_time, count=60 * 60, xp=10, group=5),
-			Achievement.basic(self, "Ten hour version?", "Listen at least 10 hours", self.total_time, count=60 * 60 * 10, xp=15, group=5),
-			Achievement.basic(self, "Well spent day.", "Listen at least 1 day", self.total_time, count=60 * 60 * 24, xp=20, group=5),
+			Achievement("One average song.", "Listen at least 3 minutes", self.total_time, count=3 * 60, xp=5, group=5),
+			Achievement("One hour.", "Listen at least 1 hour", self.total_time, count=60 * 60, xp=10, group=5),
+			Achievement("Ten hour version?", "Listen at least 10 hours", self.total_time, count=60 * 60 * 10, xp=15, group=5),
+			Achievement("Well spent day.", "Listen at least 1 day", self.total_time, count=60 * 60 * 24, xp=20, group=5),
 
-			Achievement.basic(self, "How was that melody again?", "Replay {} songs", self.song_replayed, count=5, xp=5, group=6),
-			Achievement.basic(self, "That's my jam!", "Replay {} songs", self.song_replayed, count=25, xp=10, group=6),
+			Achievement("How was that melody again?", "Replay {} songs", self.song_replayed, count=5, xp=5, group=6),
+			Achievement("That's my jam!", "Replay {} songs", self.song_replayed, count=25, xp=10, group=6),
 
-			Achievement.basic(self, "Is this the end?", "Complete your playlist", self.playlist_completed, xp=10),
+			Achievement("Is this the end?", "Complete your playlist", self.playlist_completed, xp=10),
 
-			Achievement.basic(self, "IT'S OVER ONE HUNDRED !!! Wait, never mind.", "Try to set volume over 100", self.h_volume_max, xp=10, hidden=True),
-			Achievement.basic(self, "Long playlist", "Have over 100 songs in playlist", self.h_playlist_count, hidden=True)
+			Achievement("IT'S OVER ONE HUNDRED !!! Wait, never mind.", "Try to set volume over 100", self.h_volume_max, xp=10, hidden=True),
+			Achievement("Long playlist", "Have over 100 songs in playlist", self.h_playlist_count, hidden=True)
 		]
 
 		self.conf = conf
@@ -115,8 +116,6 @@ class Stats:
 				'song_selected': self.song_selected.value,
 				'playlist_completed': self.playlist_completed.value,
 				'total_time': self.total_time.value,
-				# 'songs_guessed_correctly': self.songs_guessed_correctly.value,
-				# 'songs_guessed_incorrectly': self.songs_guessed_incorrectly.value,
 				'h_volume_max': self.h_volume_max.value,
 				'h_playlist_count': self.h_playlist_count.value
 			}, f, indent=True)

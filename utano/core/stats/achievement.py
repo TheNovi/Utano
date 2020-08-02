@@ -1,29 +1,19 @@
-from typing import List, Callable
-
-
 # TODO Add tiers in one achievements
 # TODO Untested
 class Achievement:
-	def __init__(self, stats, name, desc, condition: Callable[[], bool], events: List, /, *, xp: int = 0, group: int = 0, hidden=False):
-		from .stats import Stats
-		self.stats: Stats = stats
+	def __init__(self, name, desc: str, stat, /, *, count: int = 1, xp: int = 0, group: int = 0, hidden=False):
 		self.name: str = name
-		self.desc: str = desc
-		self.condition = condition
+		self.desc: str = desc.replace('{}', str(count))
+		self.stat = stat
+		self.count = count
 		self.xp: int = xp
 		self.group = group
 		self.hidden = hidden
 		self.got: bool = False
-		for stat in events:
-			stat.events.append(self)
+		stat.events.append(self)
 
 	def check(self) -> None:
-		if self.condition():
-			self.got = True
+		self.got = self.stat.value >= self.count
 
 	def __repr__(self):
 		return f'<Achievement: {self.name=}, {self.got=}>'
-
-	@staticmethod
-	def basic(stats, name, desc: str, event, /, *, count: int = 1, xp: int = 0, group: int = 0, hidden: bool = False) -> 'Achievement':
-		return Achievement(stats, name, desc.replace("{}", str(count)), lambda: event.value >= count, [event], xp=xp, group=group, hidden=hidden)
