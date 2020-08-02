@@ -13,21 +13,6 @@ from scenes.settings import Settings
 from scenes.stats import Stats
 from scenes.volume import Volume
 
-conf = {
-	"path": "home/music/",
-	"theme_path": "home/theme.json",
-	"stats_path": "home/stats.json",
-	"lrc_path": "home/lrc/",
-	"volume": 50,
-	"start_paused": False,
-	"auto_play": False,
-	"replay_when_progress": 0,
-	"disable_stop_button": True,
-	"switch_controls": False,
-	"reverse_title": True,
-	"reverse_in_list": False
-}
-
 theme = {
 	"bg": "Black",
 	"fg": "Red",
@@ -55,11 +40,9 @@ def queue():
 	s.after(10, queue)
 
 
-DEBUG = [x for x in sys.argv if x.lower() in ['-d', '--debug']]
-
 if __name__ == '__main__':
 	s: Stage = Stage(Style.from_dict(theme), __file__)
-	conf = Conf(s.path()).load(os.path.join('nudes' if DEBUG else 'home', 'conf.json'))
+	conf = Conf(s.path()).load(''.join(sys.argv[1:]) if len(sys.argv) > 1 else os.path.join('home', 'conf.json'))
 	s.style = Style.from_dict(load(conf.theme_path, theme))
 	ut = Utano(conf)
 	s.master.title('Utano')
@@ -86,7 +69,7 @@ if __name__ == '__main__':
 		keyboard.add_hotkey(-179, lambda: ut.pause())  # play/pause media
 		keyboard.add_hotkey(-176, lambda: ut.next_song())  # next track
 		keyboard.add_hotkey(-177, lambda: ut.next_song(-1))  # previous track
-		keyboard.add_hotkey(-178, lambda: conf['disable_stop_button'] or s.quit())  # stop media
+		keyboard.add_hotkey(-178, lambda: conf.disable_stop_button or s.quit())  # stop media
 	except:  # NOSONAR
 		pass
 
