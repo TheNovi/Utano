@@ -23,7 +23,6 @@ theme = {
 
 
 def load(path: str, default: dict) -> dict:
-	print(path)
 	c = {}
 	try:
 		with open(path, 'r') as f:

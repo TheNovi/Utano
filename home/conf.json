@@ -1,8 +1,8 @@
 {
-  "path": "home/music",
-  "theme_path": "home/theme.json",
-  "stats_path": "home/stats.json",
-  "lrc_path": "home/lrc",
+  "path": "music",
+  "theme_path": "theme.json",
+  "stats_path": "stats.json",
+  "lrc_path": "lrc",
   "volume": 50,
   "start_paused": false,
   "auto_play": false,
