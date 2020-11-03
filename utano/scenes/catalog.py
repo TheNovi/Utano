@@ -25,7 +25,7 @@ class Catalog(Scene):
 
 		self.l_catalog.inline_pack()
 
-	def activate(self):
+	def activate(self, whisper=None):
 		super().activate()
 		self.e_search.delete(0, 'end')
 		self.filter(i=self.ut.actual_i)

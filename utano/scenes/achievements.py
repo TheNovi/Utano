@@ -13,7 +13,7 @@ class Achievements(Scene):
 		Label(self, text=12 * '----------', style=self.style.child(font=('helvetica', 5))).inline_pack()
 		self.frame = Frame(self)
 
-	def activate(self) -> None:
+	def activate(self, whisper=None) -> None:
 		c = len([x for x in self.ut.stats.achievements if x.got])
 		self.title.set_(f"Achievements {c}/{len(self.ut.stats.achievements)} {int(c * 100 / len(self.ut.stats.achievements))}%")
 		self.frame.destroy()

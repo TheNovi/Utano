@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "173b91a11169a125d32f682348f736af7b268f1f11b0f4b4a0076eba7dd28591"
+            "sha256": "b87d0c80bf52b87afcab56cf5b63aa0a1e722606833b56483ed03167d5634832"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.8"
+            "python_version": "3.9"
         },
         "sources": [
             {
@@ -26,7 +26,7 @@
         },
         "nui": {
             "git": "https://github.com/TheNovi/Nui.git",
-            "ref": "d7a9e9eac3d3a600d8ae2ca6f95b2abe194d0a8a"
+            "ref": "ce660404d727ddaadf8709239b2acfe5d702a64a"
         },
         "python-vlc": {
             "hashes": [

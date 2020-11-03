@@ -28,7 +28,7 @@ class Settings(Scene):
 			.inline_pack()
 		Button(self, self.write, 'Save').inline_pack()
 
-	def activate(self) -> None:
+	def activate(self, whisper=None) -> None:
 		self.form.set_fields()
 		super().activate()
 

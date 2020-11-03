@@ -14,7 +14,7 @@ class Stats(Scene):
 		Label(self, text=12 * '----------', style=self.style.child(font=('helvetica', 5))).inline_pack()
 		self.f_stats = Frame(self)
 
-	def activate(self) -> None:
+	def activate(self, whisper=None) -> None:
 		self.f_stats.destroy()
 		self.f_stats = Frame(self)
 		m = self.f_stats

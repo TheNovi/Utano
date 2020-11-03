@@ -25,7 +25,7 @@ class Volume(Scene):
 		]:
 			self.l_volume.bind(*b)
 
-	def activate(self):
+	def activate(self, whisper=None):
 		self.timer = datetime.now()
 		self.l_volume.set_(self.ut.player.get_volume())
 		self.l_volume.config(fg=self.l_volume.style.fg)
