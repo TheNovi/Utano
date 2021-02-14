@@ -1,6 +1,5 @@
 {
   "bg": "Black",
   "fg": "Red",
-  "font": "segoe print",
-  "lrc": "#ffdddd"
+  "font_family": "segoe print"
 }

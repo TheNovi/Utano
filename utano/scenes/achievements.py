@@ -1,16 +1,18 @@
 from typing import Dict
 
-from nui.gui.v1 import Scene, Stage, Label, Frame
+from nui.gui.v2 import Scene, Stage, Label, Frame
 
 from core import Utano
 
 
 class Achievements(Scene):
+	name = 'a'
+
 	def __init__(self, stage: Stage, ut: Utano):
 		super().__init__(stage)
 		self.ut: Utano = ut
-		self.title = Label(self, text="Achievements", style=self.style.child(font=(self.style.font, 10))).inline_pack()
-		Label(self, text=12 * '----------', style=self.style.child(font=('helvetica', 5))).inline_pack()
+		self.title = Label(self, text="Achievements", style=self.style.alter_clone(font_size=10)).inline_pack()
+		Label(self, text=12 * '----------', style=self.style.alter_clone(font_family='helvetica', font_size=5)).inline_pack()
 		self.frame = Frame(self)
 
 	def activate(self, whisper=None) -> None:
@@ -29,10 +31,10 @@ class Achievements(Scene):
 			f = Frame(f, highlightthickness=1, highlightbackground='#660000')  # TODO Style color
 			fg = self.style.fg if a.got else '#880000'
 			if a.got:
-				Label(f, text=a.name + '  ', anchor='w', pady=0, style=self.style.child(font=(self.style.font, 10), fg='White')).pack(fill='both', pady=0)
-			Label(f, text=a.desc, anchor='w', pady=0, style=self.style.child(font=(self.style.font, 8), fg=fg)).pack(fill='both', pady=0, expand=True)
+				Label(f, text=a.name + '  ', anchor='w', pady=0, style=self.style.alter_clone(font_size=10, fg='White')).pack(fill='both', pady=0)
+			Label(f, text=a.desc, anchor='w', pady=0, style=self.style.alter_clone(font_size=8, fg=fg)).pack(fill='both', pady=0, expand=True)
 			if not a.got and a.count - 1:
-				Label(f, text=f"{min([a.stat.value, a.count])}/{a.count}  {int(min([a.stat.value, a.count]) * 100 / a.count)}%", anchor='e', pady=0, style=self.style.child(font=('helvetica', 7), fg=fg)).pack(fill='both', pady=0)
+				Label(f, text=f"{min([a.stat.value, a.count])}/{a.count}  {int(min([a.stat.value, a.count]) * 100 / a.count)}%", anchor='e', pady=0, style=self.style.alter_clone(font_family='helvetica', font_size=7, fg=fg)).pack(fill='both', pady=0)
 			f.pack(fill="both", side='left', expand=True)
 		super().activate()
 

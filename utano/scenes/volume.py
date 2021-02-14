@@ -1,11 +1,12 @@
 from datetime import datetime
 
-from nui.gui.v1 import Scene, Stage, Label
+from nui.gui.v2 import Scene, Stage, Label
 
 from core import Utano
 
 
 class Volume(Scene):
+	name = 'v'
 	COUNTDOWN = 3
 
 	def __init__(self, stage: Stage, ut: Utano, *args, **kwargs):
@@ -14,7 +15,7 @@ class Volume(Scene):
 		self.ut: Utano = ut
 
 		# noinspection PyTypeChecker
-		self.l_volume = Label(self, style=self.style.child(font=(self.style.font, 25)), padx=200, pady=28) \
+		self.l_volume = Label(self, style=self.style.alter_clone(font_size=25), padx=200, pady=28) \
 			.inline_bind('<MouseWheel>', self.vol_change_e) \
 			.inline_pack()
 

@@ -22,3 +22,6 @@ class Song:
 		if reverse:
 			return self.name + ' - ' + self.artist
 		return self.artist + ' - ' + self.name
+
+	def __repr__(self):
+		return f"<Song: {self._get_name()}>"

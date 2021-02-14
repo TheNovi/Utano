@@ -3,22 +3,22 @@ import os
 import sys
 
 import keyboard
-from nui.gui.v1 import Stage, Style
+from nui.gui.v2 import Stage, Style
 
 from core import Utano
 from core.conf import Conf
 from scenes.achievements import Achievements
 from scenes.catalog import Catalog
 from scenes.home import Home
-from scenes.settings import Settings
+from scenes.options import Options
 from scenes.stats import Stats
 from scenes.volume import Volume
 
 theme = {
 	"bg": "Black",
 	"fg": "Red",
-	"font": "segoe print",
-	"lrc": "#ffdddd"
+	"font_family": "segoe print",
+	# "lrc": "#ffdddd"  # TODO As child
 }
 
 
@@ -50,13 +50,8 @@ if __name__ == '__main__':
 	s.master.resizable(width=False, height=False)
 	s.master.wm_minsize(width=200, height=0)
 	s.master.bind("<Button-2>", lambda e: ut.pause())
-	s \
-		.add('', Home, ut) \
-		.add('v', Volume, ut) \
-		.add('c', Catalog, ut) \
-		.add('s', Stats, ut) \
-		.add('a', Achievements, ut) \
-		.add('settings', Settings, ut)
+	s.args(ut=ut) \
+		.add_all([Home, Catalog, Volume, Stats, Achievements, Options])
 
 	# noinspection PyTypeChecker
 	h: Home = s['']

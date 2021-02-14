@@ -1,17 +1,19 @@
 from datetime import timedelta
 from typing import Callable, Any
 
-from nui.gui.v1 import Scene, Stage, Label, Frame
+from nui.gui.v2 import Scene, Stage, Label, Frame
 
 from core import Utano
 
 
 class Stats(Scene):
+	name = 's'
+
 	def __init__(self, stage: Stage, ut: Utano):
 		super().__init__(stage)
 		self.ut: Utano = ut
-		Label(self, text="Your statistics", style=self.style.child(font=(self.style.font, 10))).inline_pack()
-		Label(self, text=12 * '----------', style=self.style.child(font=('helvetica', 5))).inline_pack()
+		Label(self, text="Your statistics", style=self.style.alter_clone(font_size=10)).inline_pack()
+		Label(self, text=12 * '----------', style=self.style.alter_clone(font_family='helvetica', font_size=5)).inline_pack()
 		self.f_stats = Frame(self)
 
 	def activate(self, whisper=None) -> None:
@@ -33,7 +35,7 @@ class Stats(Scene):
 
 	@staticmethod
 	def stat(master: Frame, name: str, stat, parser: Callable[[Any], str] = lambda v: v):
-		s = master.style.child(font=(master.style.font, 10), bg=master.style.bg if len(master.winfo_children()) % 2 else '#333333')  # TODO Do dynamic second color
+		s = master.style.alter_clone(font_size=10, bg=master.style.bg if len(master.winfo_children()) % 2 else '#333333')  # TODO Do dynamic second color
 		o = Frame(master, style=s)
 		Label(o, style=s, text=name + ': ', anchor='w').pack(fill='x', side='left')
 		Label(o, style=s, text=parser(stat.value), anchor='e').pack(fill='x', side='right', expand=True)

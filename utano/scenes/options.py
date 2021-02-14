@@ -1,19 +1,20 @@
-from nui.gui.v1 import Scene, Stage, Label, Form, Entry, Button
-from nui.gui.v1.widgets.toggle import Toggle
+from nui.gui.v2 import Scene, Stage, Label, Form, Entry, Button, Toggle, Style
 
 from core import Utano
 
 
-class Settings(Scene):
+class Options(Scene):
+	name = 'o'
+
 	def __init__(self, stage: Stage, ut: Utano):
 		super().__init__(stage)
 		self.ut = ut
-		self.style = self.style.child(font=(self.style.font, 10))
+		self.style: Style = self.style.alter_clone(font_size=10)
 		Label(self, text="Settings").inline_pack()
-		Label(self, text=30 * '----------', style=self.style.child(font=('helvetica', 5))).inline_pack()
+		Label(self, text=30 * '----------', style=self.style.alter_clone(font_family='helvetica', font_size=5)).inline_pack()
 		spacing = ':' + 5 * ' '
 		self.form = Form(self) \
-			.add_field('music_path', Entry, 'Music path' + spacing, lambda: self.ut.config.music_path) \
+			.add_field('raw_music_path', Entry, 'Music path' + spacing, lambda: self.ut.config.music_path) \
 			.add_field('raw_theme_path', Entry, 'Theme path' + spacing, lambda: self.ut.config.raw_theme_path) \
 			.add_field('raw_stats_path', Entry, 'Stats path' + spacing, lambda: self.ut.config.raw_stats_path) \
 			.add_field('raw_lrc_path', Entry, 'Lrc path' + spacing, lambda: self.ut.config.raw_lrc_path) \
@@ -33,11 +34,11 @@ class Settings(Scene):
 		super().activate()
 
 	def write(self):
-		self.ut.config.music_path = self.form['music_path']
+		self.ut.config.raw_music_path = self.form['raw_music_path']
 		self.ut.config.raw_theme_path = self.form['raw_theme_path']
 		self.ut.config.raw_stats_path = self.form['raw_stats_path']
 		self.ut.config.raw_lrc_path = self.form['raw_lrc_path']
-		try:
+		try:  # TODO Validators
 			self.ut.config.volume = int(self.form['volume'])
 		except Exception:
 			pass

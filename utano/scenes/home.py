@@ -1,23 +1,25 @@
 import re
 from random import sample
 
-from nui.gui.v1 import Scene, Stage, Label, Frame
+from nui.gui.v2 import Scene, Stage, Label, Frame
 
 from core import Utano
 from core.lyrics import Lrc, Drop
 
 
 class Home(Scene):
+	name = ''
+
 	def __init__(self, stage: Stage, ut: Utano):
 		super().__init__(stage)
 		self.ut: Utano = ut
-		self.l_name = Label(self, style=self.style.child(font=(self.style.font, 25))).inline_pack()
-		self.l_artist = Label(self, style=self.style.child(font=(self.style.font, 15))).inline_pack()
-		self.song_line = Label(self, style=self.style.child(font=('helvetica', 5))).inline_pack()
+		self.l_name = Label(self, style=self.style.alter_clone(font_size=25)).inline_pack()
+		self.l_artist = Label(self, style=self.style.alter_clone(font_size=15)).inline_pack()
+		self.song_line = Label(self, style=self.style.alter_clone(font_family='helvetica', font_size=5)).inline_pack()
 
 		self.f_lrc = Frame(self)
-		self.l_lrc = Label(self.f_lrc, style=self.style.child(font=('Comic Sans MS', 20, 'italic'))).inline_pack()
-		self.lrc_line = Label(self.f_lrc, style=self.style.child(font=('helvetica', 5))).inline_pack()
+		self.l_lrc = Label(self.f_lrc, style=self.style.alter_clone(font_family='Comic Sans MS', font_size=20)).inline_pack()  # TODO 'italic'
+		self.lrc_line = Label(self.f_lrc, style=self.style.alter_clone(font_family='helvetica', font_size=5)).inline_pack()
 		self.drop: _DropWrapper = _DropWrapper(self)
 
 		self.last_lrc_bar = 0
@@ -54,7 +56,7 @@ class Home(Scene):
 
 	def typed(self, event) -> None:
 		if event.keysym == 'Up':
-			self.stage.switch('settings')
+			self.stage.switch('o')
 		elif event.keysym == 'Down':
 			self.stage.switch('c')
 		elif len(event.keysym) == 1:
@@ -63,6 +65,7 @@ class Home(Scene):
 			self.stage['c'].e_search.insert(0, event.char)
 		elif event.keysym == 'Right':
 			self.stage.switch('s')
+
 	# elif event.keysym == 'Left':
 	# 	self.stage.switch('mod_changer')
 
